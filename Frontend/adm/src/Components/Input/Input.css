@@ -1,0 +1,44 @@
+input {
+  box-sizing: border-box;
+  width: 300px;
+  height: 48px;
+  background: #ffffff;
+  border: 1px solid #644ded;
+  border-radius: 8px;
+  padding: 12px 20px;
+  margin: 8px 0;
+  font-size: 20px;
+  line-height: 16px;
+  font-family: "Apercu Pro";
+  font-style: normal;
+}
+
+::placeholder {
+  width: 116px;
+  height: 16px;
+  font-family: "Apercu Pro";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 16px;
+  color: #bcbcc6;
+  
+  
+}
+
+.InputCss {
+}
+
+.InputCssWithLabel {
+  top: 100px;
+}
+
+.InputCssWithLabelIcon {
+  top: 200px;
+}
+
+.FontAwesomeIconClass {
+  position: absolute;
+  margin-top: 24px;
+  margin-left: -32px;
+}
