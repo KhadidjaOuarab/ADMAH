@@ -4,43 +4,36 @@ import Input from "../Input/Input";
 import Label from "../Label/Label";
 import Button from "../Button/Button";
 import { useEffect, useState } from "react";
-import axios from 'axios'
-import {Routes, Route, Link} from 'react-router-dom'
-import PageTest from '../../Pages/TestPages.jsx'
+import axios from "axios";
+import { Routes, Route, Link } from "react-router-dom";
+import PageTest from "../../Pages/TestPages.jsx";
 import { useNavigate } from "react-router-dom";
+
 function Card() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [login, setLogin] = useState(false);
-
   const navigate = useNavigate();
   const [user, setUser] = useState({
     username: username,
-    password: password
+    password: password,
   });
-
+  let target = "";
   const getValueUsername = (e) => {
-    setUsername(e.target.value);  
-    setUser({username : e.target.value,password :password});
+    setUsername(e.target.value);
+    setUser({ username: e.target.value, password: password });
   };
- /* console.log("====================================");
-  console.log(username);
-  console.log("====================================");*/
-  
+
   const getValuePassword = (ee) => {
-    setPassword(ee.target.value);  
-    setUser({username : username,password : ee.target.value})
+    setPassword(ee.target.value);
+    setUser({ username: username, password: ee.target.value });
   };
-/*  console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
-  console.log(password);
-  console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");*/
-
-  const loginFunction = (e,target) => {
-    console.log('111111111111111111111111111111111111');
+ 
+  const loginFunction = (e, target) => {
+    console.log("111111111111111111111111111111111111");
     console.log(username);
-    console.log('111111111111111111111111111111111111');
+    console.log("111111111111111111111111111111111111");
 
-   /* axios.get('http://localhost:4000/Users/AllUsers')
+    /* axios.get('http://localhost:4000/Users/AllUsers')
         .then((res) => {
             console.log("fff")
             console.log(res.data)
@@ -48,7 +41,7 @@ function Card() {
             console.log(error.value)
         });*/
 
-  /*  axios.post('http://localhost:4000/Users/create',user)
+    /*  axios.post('http://localhost:4000/Users/create',user)
         .then((res) => {
             console.log("fff")
             console.log(res.data)
@@ -56,17 +49,16 @@ function Card() {
             console.log(error.value)
         });*/
 
- axios.post('http://localhost:4000/Users/login',user)
-        .then((req) => {
-          setLogin(true);
-          navigate(target);
-        }).catch((error) => {
-            console.log(error.value)
-            
-        });   
-// Verifier si login et send another page
-
-
+    axios
+      .post("http://localhost:4000/Users/login", user)
+      .then((response) => {
+        target = "/home";
+        navigate(target);
+      })
+      .catch((error) => {
+        console.log(error.value);
+        target = "/";
+      });
   };
 
   return (
@@ -94,17 +86,15 @@ function Card() {
           onChangeFunction={getValuePassword}
         />
       </div>
-  <Link to="/next">
-  <Button button="button" ButtonLabel="Login" onClickFunction={e => loginFunction(e, "/next ")} />
-  </Link>
-     
-      <Label labelClass="LabelPurpleMedium" label="Forgot Password?" />
+      <Link to={target}>
+        <Button
+          button="button"
+          ButtonLabel="Login"
+          onClickFunction={(e) => loginFunction(e, target)}
+        />
+      </Link>
 
-      {login ? (
-          <p className="text-success">You Are Logged in Successfully</p>
-        ) : (
-          <p className="text-danger">You Are Not Logged in</p>
-        )}
+      <Label labelClass="LabelPurpleMedium" label="Forgot Password?" />
     </div>
   );
 }

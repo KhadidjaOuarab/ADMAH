@@ -1,6 +1,5 @@
 
 // create users schema using mongoose
-// import mongoose
 const mongoose = require('mongoose')
 const bcrypt = require('bcrypt');
 // Define schema
@@ -37,6 +36,7 @@ userSchema.methods.matchPassword = async function (enteredPassword) {
 // Schema are then compiled into models using the mongoose.model() method
 // once you have a model you can use it to find, create, update and delete objects
 //module.exports = mongoose.model("users", userSchema);
+
 module.exports = mongoose.model.users || mongoose.model("users", userSchema);
 
 //The code above is saying: "create a user table or collection if there is no table with that name already".
