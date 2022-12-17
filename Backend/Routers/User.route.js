@@ -5,12 +5,14 @@
 const express = require('express');
 const routerUser = express.Router();
 const userController = require('../Controllers/User.controller');
+
 // Adding a couple of routes to the router using the get() method. After we export the route object
 
 routerUser.get('/AllUsers', userController.getAllUsers);
 routerUser.post('/create', userController.createUser);
 routerUser.post('/signup', userController.signup);
-routerUser.post('/login', userController.login);
+//routerUser.post('/login', userController.login);
 
-
+routerUser.route("/").post(userController.registerUser);
+routerUser.post("/login", userController.authUser);
 module.exports = routerUser;

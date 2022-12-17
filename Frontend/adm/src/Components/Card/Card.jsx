@@ -5,11 +5,15 @@ import Label from "../Label/Label";
 import Button from "../Button/Button";
 import { useEffect, useState } from "react";
 import axios from 'axios'
-
+import {Routes, Route, Link} from 'react-router-dom'
+import PageTest from '../../Pages/TestPages.jsx'
+import { useNavigate } from "react-router-dom";
 function Card() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [login, setLogin] = useState(false);
 
+  const navigate = useNavigate();
   const [user, setUser] = useState({
     username: username,
     password: password
@@ -31,7 +35,7 @@ function Card() {
   console.log(password);
   console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");*/
 
-  const login = (e) => {
+  const loginFunction = (e,target) => {
     console.log('111111111111111111111111111111111111');
     console.log(username);
     console.log('111111111111111111111111111111111111');
@@ -54,12 +58,14 @@ function Card() {
 
  axios.post('http://localhost:4000/Users/login',user)
         .then((req) => {
-            console.log(user);
-          
+          setLogin(true);
+          navigate(target);
         }).catch((error) => {
             console.log(error.value)
             
         });   
+// Verifier si login et send another page
+
 
   };
 
@@ -88,9 +94,17 @@ function Card() {
           onChangeFunction={getValuePassword}
         />
       </div>
-
-      <Button button="button" ButtonLabel="Login" onClickFunction={login} />
+  <Link to="/next">
+  <Button button="button" ButtonLabel="Login" onClickFunction={e => loginFunction(e, "/next ")} />
+  </Link>
+     
       <Label labelClass="LabelPurpleMedium" label="Forgot Password?" />
+
+      {login ? (
+          <p className="text-success">You Are Logged in Successfully</p>
+        ) : (
+          <p className="text-danger">You Are Not Logged in</p>
+        )}
     </div>
   );
 }
