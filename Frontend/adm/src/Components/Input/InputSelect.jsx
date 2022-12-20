@@ -5,12 +5,13 @@ import chroma from "chroma-js";
 import { useEffect, useState } from "react";
 function InputSelect() {
   const options = [
-    { label: "Fruit", value: "fruit" },
-    { label: "Vegetable", value: "vegetable" },
-    { label: "Meat", value: "meat" },
+    { label: "Issue", value: "Issue" },
+    { label: "Flown", value: "Flown" },
+    { label: "Refund", value: "Refund" },
+    { label: "Exchange", value: "Exchange" },
   ];
 
-  const [valSelected, setValSelected] = useState("");
+  const [valSelected, setValSelected] = useState("Issue");
 
   const getValSelected = (valSelected) => {
     setValSelected(valSelected);
@@ -21,14 +22,14 @@ function InputSelect() {
     <div style={{ width: "250.78px" }}>
       <Select
         styles={{
-           control: (baseStyles, state) => ({
+          control: (baseStyles, state) => ({
             ...baseStyles,
-           
+
             padding: "0",
             margin: "0",
             border: "1px solid #644ded",
             width: "250.78px",
-           height: "40px",
+            height: "40px",
             boxSizing: "border-box",
             background: "#ffffff",
             borderRadius: "8px",
@@ -40,14 +41,25 @@ function InputSelect() {
           }),
           option: (styles, { isSelected }) => ({
             ...styles,
-            width: "239.93px",
-            height: "32px",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "flex-start",
+            gap: "2px",
+          
+            left: "5.9px",
+            right: "4.95px",
+            top: "7px",
+            width: "250.78px",
+            height: "40px",
             borderRadius: "6px",
             fontFamily: "Apercu Pro",
             fontStyle: "normal",
             fontWeight: "400",
-            fontSize: "13px",
+            fontSize: "16px",
             lineHeight: "16px",
+            paddingLeft: "16px",
+            paddingTop: "10px",
+          
             "&:hover": {
               background: "#EEEEF2",
               border: "0px solid #AD9FFF",
@@ -60,7 +72,6 @@ function InputSelect() {
               baseUnit: 0,
             },
           }),
-         
 
           dropdownIndicator: (base) => ({
             ...base,
@@ -70,20 +81,17 @@ function InputSelect() {
             paddingBottom: 0,
             margin: 0,
           }),
-         
-        clearIndicator: (styles) => ({
+
+          clearIndicator: (styles) => ({
             ...styles,
             paddingTop: 0,
             paddingBottom: 0,
             margin: 0,
-        }),
-
-        
+          }),
         }}
         // styles={colourStyles}
         // className="abc"
-        // unstyled
-
+        unstyled
         options={options}
         value={valSelected}
         onChange={getValSelected}
@@ -93,8 +101,6 @@ function InputSelect() {
           IndicatorSeparator: () => null,
         }}
         placeholder=""
-
-        className="css-qbdosj-Input"
       />
     </div>
   );
