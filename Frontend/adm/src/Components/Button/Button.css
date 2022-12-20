@@ -1,26 +1,37 @@
-
 .button {
-       
-    width: 300px;
-    height: 46px;
-    border: 0px solid black;
-    background: rgba(100, 77, 237, 0.08);
-    border-radius: 8px;
-    cursor: pointer;
+  width: 300px;
+  height: 46px;
+  border: 0px solid black;
+  background: rgba(100, 77, 237, 0.08);
+  border-radius: 8px;
+  cursor: pointer;
 
-
-    font-family: 'Apercu Pro';
-    font-style: normal;
-    font-weight: 600;
-    font-size: 18px;
-    line-height: 16px;
-    color: #644DED;
-    padding-left: 100px;
-    padding-right: 100px ;
-  
-
+  font-family: "Apercu Pro";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 16px;
+  color: #644ded;
+  padding-left: 100px;
+  padding-right: 100px;
 }
-  
-  /*.button1 {background-color: #4CAF50;} /* Green */
-  /*.button2 {background-color: #008CBA;} /* Blue */
 
+/*.button1 {background-color: #4CAF50;} /* Green */
+/*.button2 {background-color: #008CBA;} /* Blue */
+
+.SearchButton {
+  position: relative;
+  height: 40px;
+  background: rgba(100, 77, 237, 0.08);
+  border-radius: 8px;
+  width: 196.8298797607422px;
+  padding: 8px 16px 8px 16px;
+  border: 0px;
+  font-family: "Apercu Pro";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 16px;
+  color: #644ded;
+  letter-spacing : 0.8px;
+}

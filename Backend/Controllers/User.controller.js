@@ -23,7 +23,7 @@ userController.authUser = asyncHandler(async (req, res) => {
         token: generateToken(user._id),
        
       });
-      localStorage.setItem(token);
+    //  localStorage.setItem(token);
     } else {
       res.status(500).json({
         error: new Error("Invalid Email or Password"),

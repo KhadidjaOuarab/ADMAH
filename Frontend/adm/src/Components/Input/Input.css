@@ -22,8 +22,6 @@ input {
   font-size: 16px;
   line-height: 16px;
   color: #bcbcc6;
-  
-  
 }
 
 .InputCss {
@@ -41,4 +39,43 @@ input {
   position: absolute;
   margin-top: 24px;
   margin-left: -32px;
+}
+
+.css-1hb7zxy-IndicatorsContainer {
+  height: 40px;
+  width: 40px;
+}
+
+.css-qbdosj-Input {
+  height: 40px;
+}
+
+.css-1fdsijx-ValueContainer {
+  height: 40px;
+}
+
+.css-1dimb5e-singleValue {
+  font-family: Apercu Pro;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 16px;
+  letter-spacing: 0px;
+  text-align: left;
+}
+.css-ifo55t-control {
+  box-sizing: border-box;
+
+  position: absolute;
+  left: 0%;
+  right: 0%;
+  top: 0%;
+  bottom: 81.22%;
+
+  /* dark-50 */
+
+  background: #eeeef2;
+  /* purple-50 */
+
+  border: 1px solid #ad9fff;
+  border-radius: 8px;
 }
