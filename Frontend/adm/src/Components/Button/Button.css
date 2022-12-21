@@ -5,7 +5,6 @@
   background: rgba(100, 77, 237, 0.08);
   border-radius: 8px;
   cursor: pointer;
-
   font-family: "Apercu Pro";
   font-style: normal;
   font-weight: 600;
@@ -20,11 +19,11 @@
 /*.button2 {background-color: #008CBA;} /* Blue */
 
 .SearchButton {
-  position: relative;
+  
   height: 40px;
   background: rgba(100, 77, 237, 0.08);
   border-radius: 8px;
-  width: 196.8298797607422px;
+  width: 200px;
   padding: 8px 16px 8px 16px;
   border: 0px;
   font-family: "Apercu Pro";
@@ -34,4 +33,16 @@
   line-height: 16px;
   color: #644ded;
   letter-spacing : 0.8px;
+}
+.SearchButton::before {
+  content: "🔎 ";
+}
+
+.divclassbutton{
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+align-items: center;
+padding: 8px 16px;
+gap: 130px;
 }

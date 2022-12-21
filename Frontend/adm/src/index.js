@@ -16,6 +16,18 @@ import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 
+/* Prime React Configuration 
+
+
+import "primereact/resources/themes/lara-light-indigo/theme.css";  //theme
+import "primereact/resources/themes/tailwind-light/theme.css";  //theme
+import "primereact/resources/themes/bootstrap4-light-purple/theme.css";  //theme
+
+import "primereact/resources/primereact.min.css";                  //core css
+import "primeicons/primeicons.css";                                //icons
+import "primeflex/primeflex.css";                                //flex
+
+/**************************** */
 library.add(fas, far, fab);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
