@@ -1,12 +1,17 @@
-import React from 'react'
+import React from "react";
 import homeCss from "../Pages/Home.css";
 import Search from "../Components/Search/Search";
+import MenuBar from "../Components/Menu/MenuBar";
+import PanelCard from "../Components/Panel/PanelCard";
+import DataTable from "../Components/DataTable/DataTableCrudDemo";
 function Home() {
   return (
     <div>
-      <Search />
+      <MenuBar />
+      <PanelCard />
+      <DataTable />
     </div>
-  )
+  );
 }
 
-export default Home
+export default Home;

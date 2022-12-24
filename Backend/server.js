@@ -5,6 +5,8 @@ const cors = require("cors");
 const app = express();
 const bp = require("body-parser");
 const usersRouter = require("./Routers/user.route");
+const admsRouter = require("./Routers/adm.route");
+
 const db = mongoose.connection;
 
 require("dotenv").config();
@@ -32,6 +34,7 @@ app.get("/", (req, res) => {
   res.send(`Server Express Connected on ${process.env.PORT}`);
 });
 app.use("/Users", usersRouter);
+app.use("/Adms", admsRouter);
 app.listen(process.env.PORT, () =>
   console.log(`server connected on port ${process.env.PORT}`)
 );
