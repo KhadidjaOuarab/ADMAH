@@ -2,17 +2,17 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { Dropdown } from "primereact/dropdown";
 
-function InputPrime({label}) {
-  const [countries, setCountries] = useState([]);
-  const [selectedCountry, setSelectedCountry] = useState(null);
+function InputPrime({label, placeholder,autoCompleteValues,selectedValue,onChangeMethod,filterByProps,optionLabelProps}) {
+  //const [countries, setCountries] = useState([]);
+  //const [selectedCountry, setSelectedCountry] = useState(null);
 
-  const onCountryChange = (e) => {
+ /* const onCountryChange = (e) => {
     setSelectedCountry(e.value);
-  };
+  };*/
   const selectedCountryTemplate = (option, props) => {
     if (option) {
       return (
-        <div className="country-item country-item-value">
+        <div className="country-item country-item-value ">
           <img
             alt={option.name}
             src="images/flag/flag_placeholder.png"
@@ -49,17 +49,19 @@ function InputPrime({label}) {
 
   return (
     <div className="field flex flex-column">
-      <label htmlFor="auto">{label}</label>  <Dropdown
-        value={selectedCountry}
-        options={countries}
-        onChange={onCountryChange}
-        optionLabel="name"
+      <label htmlFor="auto">{label}</label>  
+      <Dropdown
+        value={selectedValue}
+        options={autoCompleteValues}
+        onChange={onChangeMethod}
+        optionLabel={optionLabelProps}
         filter
-        showClear
-        filterBy="name"
-        placeholder="Select a Country"
-        valueTemplate={selectedCountryTemplate}
-        itemTemplate={countryOptionTemplate}
+      //  showClear
+        filterBy={filterByProps}
+        placeholder={placeholder}
+      //  valueTemplate={selectedCountryTemplate}
+      //  itemTemplate={countryOptionTemplate}
+        className="w-15rem h-3rem"
         
       />
     </div>

@@ -9,6 +9,7 @@ const verifyToken = require('../middleware/authMiddleware');
 // Adding a couple of routes to the router using the get() method. After we export the route object
 
 routerAdm.get('/AllAdms', admController.getAllAdms);
+routerAdm.get('/CreateAdm', admController.getAllAdms);
 /*routerUser.post('/create', userController.createUser);
 routerUser.post('/signup', userController.signup);
 routerUser.post('/login', userController.login);

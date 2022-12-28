@@ -8,32 +8,32 @@ const bcrypt = require("bcrypt");
 require("dotenv").config();
 const SECRET = process.env.JWT_SECRET;
 
-
 userController.authUser = asyncHandler(async (req, res) => {
-    const { username, password } = req.body;
-    console.log("%%%%%%%%%%%%%%%%%%%");
-    console.log(req.body);
-    console.log("%%%%%%%%%%%%%%%");
-    const user = await UserModel.findOne({ username });
-  
-    if (user && (await user.matchPassword(password))) {
-      res.json({
-        _id: user._id,
-        username: user.username,
-        token: generateToken(user._id),
-       
-      });
-    //  localStorage.setItem(token);
-    } else {
-      res.status(500).json({
-        error: new Error("Invalid Email or Password"),
-      });
-      throw new Error("Invalid Email or Password");
-    }
-  });
+  const { username, password } = req.body;
+  console.log("%%%%%%%%%%%%%%%%%%%");
+  console.log(req.body);
+  console.log("%%%%%%%%%%%%%%%");
+  // users = await UserModel.find();
+  // console.log(users);
+  const user = await UserModel.findOne({ username });
+  console.log(user);
 
-  
-/*
+  if (user && (await user.matchPassword(password)))  {
+    res.json({
+      _id: user._id,
+      username: user.username,
+      token: generateToken(user._id),
+    });
+    
+  } else {
+    res.status(500).json({
+      error: new Error("Invalid Email or Password"),
+    });
+    throw new Error("Invalid Email or Password");
+  }
+});
+
+
 userController.getAllUsers = async function (req, res) {
   console.log("GET /getAllUsers");
   let users;
@@ -68,7 +68,7 @@ userController.createUser = async function (req, res) {
     });
   }
 };
-
+/*
 // signup controller using jwt
 //  signup ? create new user / register
 userController.signup = (req, res) => {

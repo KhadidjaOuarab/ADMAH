@@ -1,9 +1,9 @@
 import React from "react";
 import { Button } from "primereact/button";
-function ButtonPrimeIcon({label}) {
+function ButtonPrimeIcon({label,searchFunction,icon,classname}) {
   return (
     <div>
-      <Button label={label} icon="pi pi-check" iconPos="left" />
+      <Button label={label} icon={icon} iconPos="left" onClick={searchFunction} className={classname}/>
     </div>
   );
 }

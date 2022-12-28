@@ -6,7 +6,7 @@ import Button from "../Button/Button";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Routes, Route, Link } from "react-router-dom";
-import PageTest from "../../Pages/TestPages.jsx";
+
 import { useNavigate } from "react-router-dom";
 
 function Card() {

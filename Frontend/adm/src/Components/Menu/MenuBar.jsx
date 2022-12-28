@@ -139,7 +139,7 @@ function MenuBar() {
   return (
     <div>
       <div className="card">
-        <Menubar 
+        <Menubar className="pr-5"
           model={items}
           start={
             

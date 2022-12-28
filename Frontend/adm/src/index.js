@@ -11,6 +11,12 @@ import { far } from "@fortawesome/free-regular-svg-icons";
 import { fab } from "@fortawesome/free-brands-svg-icons";
 import { Routes, Route, Link } from "react-router-dom";
 import Home from "./Pages/Home.jsx";
+import CreateADM from "./Pages/CreateStep1"
+import CreateAdmFlown from "./Pages/CreateStep2Flown"
+import CreateAdmExchange from "./Pages/CreateStep2Exchange"
+import CreateAdmRefund from "./Pages/CreateStep2Refund"
+import Anomaly from "./Pages/CreateStep3Anomaly"
+import Summary from "./Pages/CreateStep4Summary"
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
@@ -37,6 +43,12 @@ root.render(
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/home" element={<Home />} />
+        <Route path="/CreateStep1" element={<CreateADM />} />
+        <Route path="/CreateStep2Flown" element={<CreateAdmFlown />} />
+        <Route path="/CreateStep2Exchange" element={<CreateAdmExchange />} />
+        <Route path="/CreateStep2Refund" element={<CreateAdmRefund />} />
+        <Route path="/Anomaly" element={<Anomaly />} />
+        <Route path="/Summary" element={<Summary/>} />
       </Routes>
     </React.StrictMode>
   </BrowserRouter>

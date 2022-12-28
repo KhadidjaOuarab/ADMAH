@@ -2,10 +2,10 @@ import React from 'react'
 import { Steps } from 'primereact/steps';
 function MenuSteps() {
     const items = [
-        {label: 'Personal'},
-        {label: 'Seat'},
-        {label: 'Payment'},
-        {label: 'Confirmation'}
+        {label: 'ADM Information'},
+        {label: 'ADM Details'},
+        {label: 'Anomaly'},
+        {label: 'Summary'}
     ];
   return (
     <div>

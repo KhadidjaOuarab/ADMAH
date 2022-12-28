@@ -4,9 +4,9 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const app = express();
 const bp = require("body-parser");
-const usersRouter = require("./Routers/user.route");
-const admsRouter = require("./Routers/adm.route");
-
+const usersRouter = require("./Routers/User.route");
+const admsRouter = require("./Routers/Adm.route");
+const agentsRouter = require("./Routers/Agent.route");
 const db = mongoose.connection;
 
 require("dotenv").config();
@@ -35,6 +35,7 @@ app.get("/", (req, res) => {
 });
 app.use("/Users", usersRouter);
 app.use("/Adms", admsRouter);
+app.use("/Agents", agentsRouter);
 app.listen(process.env.PORT, () =>
   console.log(`server connected on port ${process.env.PORT}`)
 );
