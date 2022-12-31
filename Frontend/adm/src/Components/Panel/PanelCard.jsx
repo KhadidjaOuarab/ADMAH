@@ -8,7 +8,12 @@ import { Routes, Route, Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
-const PanelCard = () => {
+import { connect } from "react-redux";
+import { useDispatch } from "react-redux";
+import { SETPRODUCT } from "../../Redux/type/type";
+import {setProductAction} from "../../Redux/actions/actions"
+const PanelCard = (props) => { 
+ 
   const [selectedAdmType, setSelectedAdmType] = useState(null);
   const admTypes = [
     { name: "Issue", code: "ISSUE" },
@@ -39,31 +44,35 @@ const PanelCard = () => {
       </div>
     );
   };
-  const [products, setProducts] = useState(null);
+  /**************************************************************** */
+  const [products, setProducts] = useState([{}]);
+  const dispatch = useDispatch();
+  /**************************************************************** */
+
   const searchAdmFunction = () => {
     console.log("response.ok");
 
-  /*  const fetchProducts = async () => {
-      const response = await fetch("http://localhost:4000/Adms/AllAdms");
-      const json = await response.json();
-      console.log(response.ok);
-      if (response.ok) {
-        setProducts(json);
-      }
-    };
-    console.log(products);*/
     axios
       .get("http://localhost:4000/Adms/AllAdms")
       .then((response) => {
         setProducts(response.data);
         console.log(products);
+        dispatch({ type: SETPRODUCT , payload: response.data});
+        console.log(products);
       })
       .catch((error) => {
         console.log(error.value);
-        
       });
-      console.log(products);
+   
   };
+
+
+
+
+
+
+
+
 
   const CreateAdmFunction = () => {
     target = "/CreateStep1";
@@ -94,8 +103,6 @@ const PanelCard = () => {
     setSelectedAdmType(e.value);
   };
 
-  /////////////////////////////////////////////////////
-
   ////////  Get Auto Complete Agents ////////////////
 
   const [users, setUsers] = useState([]);
@@ -106,15 +113,7 @@ const PanelCard = () => {
       const response1 = await fetch("http://localhost:4000/Users/AllUsers");
       const newData1 = await response1.json();
       console.log(newData1);
-      //  console.log(newData1[1]["username"]);
       setUsers(newData1);
-
-      /* console.log("//////////////////");
-      console.log(typeof newData);
-      var parsedData = JSON.parse(newData);
-      console.log(typeof parsedData);
-      console.log( newData[1]["Agency Code"]       );
-      console.log("///////////////");*/
     };
     fetchData1();
   }, []);
@@ -162,7 +161,7 @@ const PanelCard = () => {
           <PrimeButton
             label="Search"
             icon="pi pi-search"
-            searchFunction={searchAdmFunction}
+            searchFunction={() => dispatch(searchAdmFunction())}
             classname=""
           />
 
@@ -180,4 +179,14 @@ const PanelCard = () => {
   );
 };
 
+////////////// Se connecter au store pour récuperer le product for the datatable ////////
+// Le state c'est l'état de notre magasin
+
+/*const mapStateToProps = (state) => {
+  return {
+    products:  state.products
+  };
+};
+*/
+/*******************************************************************$ */
 export default PanelCard;

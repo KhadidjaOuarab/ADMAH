@@ -14,9 +14,10 @@ import { Dialog } from "primereact/dialog";
 import { InputText } from "primereact/inputtext";
 import "../DataTable/DataTableDemo.css";
 import axios from "axios";
+import { connect } from "react-redux";
+import { useSelector } from "react-redux";
 
-function DataTableCrudDemo() {
-
+function DataTableCrudDemo(props) {
   let emptyADM = {
     id: null,
     admNumber: 0,
@@ -30,19 +31,19 @@ function DataTableCrudDemo() {
     flightDate: null,
     flightNumber: 0,
     from: "",
-    to:"",
+    to: "",
     exchangeDate: null,
     exchangeDocument: 0,
     exchangeCoupon: 0,
-    exchangeAgent:"",
+    exchangeAgent: "",
     refundDate: null,
     refundDocument: 0,
     refundCoupon: 0,
-    refundAgent:"",
-
+    refundAgent: "",
   };
 
-  const [products, setProducts] = useState(null);
+  const products = useSelector((state) => state.reducerSetProduct.state);
+
   const [productDialog, setProductDialog] = useState(false);
   const [deleteProductDialog, setDeleteProductDialog] = useState(false);
   const [deleteProductsDialog, setDeleteProductsDialog] = useState(false);
@@ -54,32 +55,6 @@ function DataTableCrudDemo() {
   const dt = useRef(null);
   const productService = new ProductService();
 
-  /* axios.get('http://localhost:4000/Adms/AllAdms')
-  .then((res) => {
-      console.log("fff");
-      console.log(res.data);
-      setProducts(res.data);
-  }).catch((error) => {
-      console.log(error.value)
-  });*/
-/*
-  useEffect(() => {
-    const fetchProducts = async () => {
-      const response = await fetch("http://localhost:4000/Adms/AllAdms");
-      const json = await response.json();
-      console.log(response.ok);
-      if (response.ok) {
-        setProducts(json);
-      }
-    };
-
-    fetchProducts();
-  }, []);*/
-  /* useEffect(() => { console.log("hhhhhhhhhhhhhhhhhh");
-    productService.getProducts().then((data) => setProducts(data).json);
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
-  */
- 
 
   const openNew = () => {
     setProduct(emptyADM);
@@ -128,7 +103,7 @@ function DataTableCrudDemo() {
         });
       }
 
-      setProducts(_products);
+      //setProducts(_products);
       setProductDialog(false);
       setProduct(emptyADM);
     }
@@ -144,17 +119,13 @@ function DataTableCrudDemo() {
     setDeleteProductDialog(true);
   };
 
-  const copyProduct = (product) => {
-   
-  };
+  const copyProduct = (product) => {};
 
-  const queryProduct = (product) => {
-   
-  };
+  const queryProduct = (product) => {};
 
   const deleteProduct = () => {
     let _products = products.filter((val) => val.id !== product.id);
-    setProducts(_products);
+    // setProducts(_products);
     setDeleteProductDialog(false);
     setProduct(emptyADM);
     toast.current.show({
@@ -187,8 +158,6 @@ function DataTableCrudDemo() {
     return id;
   };
 
-  
-
   const exportCSV = () => {
     dt.current.exportCSV();
   };
@@ -199,7 +168,7 @@ function DataTableCrudDemo() {
 
   const deleteSelectedProducts = () => {
     let _products = products.filter((val) => !selectedProducts.includes(val));
-    setProducts(_products);
+    //  setProducts(_products);
     setDeleteProductsDialog(false);
     setSelectedProducts(null);
     toast.current.show({
@@ -209,9 +178,6 @@ function DataTableCrudDemo() {
       life: 3000,
     });
   };
-
-
-  
 
   const rightToolbarTemplate = () => {
     return (
@@ -226,7 +192,6 @@ function DataTableCrudDemo() {
     );
   };
 
-
   const actionBodyTemplate = (rowData) => {
     return (
       <div className="flex flex-row">
@@ -235,7 +200,7 @@ function DataTableCrudDemo() {
           className="p-button-rounded p-button-info mr-2"
           onClick={() => queryProduct(rowData)}
         />
-       
+
         <Button
           icon="pi pi-pencil"
           className="p-button-rounded p-button-success mr-2"
@@ -246,7 +211,7 @@ function DataTableCrudDemo() {
           className="p-button-rounded p-button-help"
           onClick={() => copyProduct(rowData)}
         />
-         <Button
+        <Button
           icon="pi pi-trash"
           className="p-button-rounded p-button-danger"
           onClick={() => confirmDeleteProduct(rowData)}
@@ -404,9 +369,7 @@ function DataTableCrudDemo() {
           className="p-fluid"
           footer={productDialogFooter}
           onHide={hideDialog}
-        >
-          
-        </Dialog>
+        ></Dialog>
 
         <Dialog
           visible={deleteProductDialog}
@@ -443,9 +406,7 @@ function DataTableCrudDemo() {
               style={{ fontSize: "2rem" }}
             />
             {product && (
-              <span>
-                Are you sure you want to delete the selected ADM?
-              </span>
+              <span>Are you sure you want to delete the selected ADM?</span>
             )}
           </div>
         </Dialog>
@@ -454,4 +415,16 @@ function DataTableCrudDemo() {
   );
 }
 
+////////////// Se connecter au store pour récuperer le product for the datatable ////////
+// Le state c'est l'état de notre magasin
+
+/*const mapStateToProps = state => {
+  return {
+    products : state.products
+  }
+}*/ //
+
+/*******************************************************************$ */
+
+//export default connect(mapStateToProps) (DataTableCrudDemo);
 export default DataTableCrudDemo;

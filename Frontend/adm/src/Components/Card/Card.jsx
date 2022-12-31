@@ -6,7 +6,7 @@ import Button from "../Button/Button";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Routes, Route, Link } from "react-router-dom";
-
+import {connect} from "react-redux"
 import { useNavigate } from "react-router-dom";
 
 function Card() {
@@ -18,6 +18,8 @@ function Card() {
     password: password,
   });
   let target = "";
+
+
   const getValueUsername = (e) => {
     setUsername(e.target.value);
     setUser({ username: e.target.value, password: password });
@@ -32,23 +34,6 @@ function Card() {
     console.log("111111111111111111111111111111111111");
     console.log(username);
     console.log("111111111111111111111111111111111111");
-
-    /* axios.get('http://localhost:4000/Users/AllUsers')
-        .then((res) => {
-            console.log("fff")
-            console.log(res.data)
-        }).catch((error) => {
-            console.log(error.value)
-        });*/
-
-    /*  axios.post('http://localhost:4000/Users/create',user)
-        .then((res) => {
-            console.log("fff")
-            console.log(res.data)
-        }).catch((error) => {
-            console.log(error.value)
-        });*/
-
     axios
       .post("http://localhost:4000/Users/login", user)
       .then((response) => {
@@ -99,4 +84,4 @@ function Card() {
   );
 }
 
-export default Card;
+export default  Card;
