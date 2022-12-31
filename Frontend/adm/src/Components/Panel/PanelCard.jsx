@@ -57,7 +57,7 @@ const PanelCard = (props) => {
       .then((response) => {
         setProducts(response.data);
         console.log(products);
-        dispatch({ type: SETPRODUCT , payload: response.data});
+        dispatch( setProductAction(response.data));
         console.log(products);
       })
       .catch((error) => {
