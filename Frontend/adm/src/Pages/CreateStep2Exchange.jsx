@@ -14,40 +14,100 @@ import CalendarInput from "../Components/Input/Calendar";
 import PrimeButton from "../Components/Button/ButtonPrimeIcon";
 import { Routes, Route, Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import useFetch from "../Custom Hook/useFetch";
+import { useDispatch } from "react-redux";
+import { setAdmAction } from "../Redux/actions/actions";
+
 function CreateStep1() {
-  let target = "";
+  //const [agents, setAgents] = useState([]);
+  const [agent, setAgent] = useState(null);
+  const [exchangeNumber, setExchangeNumber] = useState(null);
+  const [couponNumber, setCouponNumber] = useState(null);
+  const [exchangedDate, setExchangedDate] = useState(null);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const loginFunction = ( target) => {
-    target = "/CreateStep2Refund";
-    navigate(target);
+  const exchangeFunction = () => {
+    dispatch(
+      setAdmAction({
+        exchangeNumber: exchangeNumber,
+        exchangedDate: exchangedDate,
+        couponNumber: couponNumber,
+        agentCode: agent,
+      })
+    );
+    navigate("/CreateStep2Refund");
   };
+  const onChangeMethod = (e) => {
+    setAgent(e.value);
+  };
+
+  const {
+    data: agents,
+    loading: loading1,
+    error: error1,
+  } = useFetch("http://localhost:4000/Agents/AllAgents");
+
   return (
     <div>
       <MenuBar />
       <BreadCrumbDemo />
-      <div className="flex flex-column m-4  align-items-center justify-content-between gap-2">
+      <div className="flex flex-column  align-items-center justify-content-between gap-2">
         <h1>ADM Information</h1>
-        <label>
-          Exchanged Document Detail
-        </label>
+        <label>Exchanged Document Detail</label>
       </div>
       <MenuSteps />
 
       <FlexBox
-        input1Col1={<CalendarInput label="Exchanged Date" />}
-        input2Col1={<InputMask label="Exchanged Document " />}
-        input3Col1={""}
-        input1Col2={<InputMask label="Agent Code" />}
-        input2Col2={<InputMask label="Coupon Number" />}
-        input3Col2={""}
+        input1Col1={
+          <CalendarInput
+            label="Exchanged Date"
+            date3={exchangedDate}
+            setDate={(e) => setExchangedDate(e.value)}
+          />
+        }
+        input2Col1={
+          <InputMask
+            label="Exchanged Document "
+            mask="9999999999"
+            val1={exchangeNumber}
+            setVal1={(e) => setExchangeNumber(e.value)}
+          />
+        }
+        input1Col2={
+          <DropDownClear
+            label="Agent Code"
+            placeholder="Select an Agent"
+            autoCompleteValues={agents}
+            selectedValue={agent}
+            onChangeMethod={onChangeMethod}
+            filterByProps="Agency Code"
+            optionLabelProps="Agency Code"
+          />
+        }
+        input2Col2={
+          <InputMask
+            label="Coupon Number"
+            mask="9"
+            val1={couponNumber}
+            setVal1={(e) => setCouponNumber(e.value)}
+          />
+        }
       />
 
       <div className="flex flex-row  justify-content-center align-items-center gap-3">
-        <PrimeButton label="Next" searchFunction={""} />
-
-        <Link to={target}>
-          <PrimeButton label="Go Back" searchFunction={loginFunction(target)} />
-        </Link>
+        <PrimeButton
+          label="Go Back"
+          icon="pi pi-times"
+          classname="p-button-secondary w-10rem"
+          searchFunction={exchangeFunction}
+        />
+        <PrimeButton
+          label="Next   "
+          icon="pi pi-check"
+          searchFunction={exchangeFunction}
+          classname="p-button-success w-10rem"
+        />
       </div>
     </div>
   );

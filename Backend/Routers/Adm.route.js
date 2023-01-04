@@ -10,13 +10,15 @@ const verifyToken = require('../middleware/authMiddleware');
 
 routerAdm.get('/AllAdms', admController.getAllAdms);
 routerAdm.get('/CreateAdm', admController.getAllAdms);
-/*routerUser.post('/create', userController.createUser);
-routerUser.post('/signup', userController.signup);
-routerUser.post('/login', userController.login);
-routerUser.route("/").post(userController.registerUser);
-routerUser.get('/users', verifyToken);*/
 
-//routerUser.post("/login", userController.authUser);
+
+routerAdm.get('/AllAdmsFilterDocNum/:documentNumber', admController.getAllAdmsByFilterDocNum);
+routerAdm.get('/AllAdmsFilterAdmNum/:admNumber', admController.getAllAdmsByFilterAdmNum);
+routerAdm.get('/AllAdmsFilterAdmType/:selectedAdmType', admController.getAllAdmsByFilterAdmTypes);
+routerAdm.get('/AllAdmsFilterAgent/:agent', admController.getAllAdmsByFilterAgent);
+routerAdm.get('/AllAdmsFilterUser/:user', admController.getAllAdmsByFilterUser);
+
+routerAdm.delete('/DeleteAdm/:id', admController.deleteADM);
 
 
 module.exports = routerAdm;

@@ -4,26 +4,32 @@ import { Ripple } from "primereact/ripple";
 import InputMask from "../Input/InputMask";
 import DropDownClear from "../Input/DropDownAdvanced";
 import PrimeButton from "../Button/ButtonPrimeIcon";
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route, Link, Await } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { connect } from "react-redux";
 import { useDispatch } from "react-redux";
-import { SETPRODUCT } from "../../Redux/type/type";
-import {setProductAction} from "../../Redux/actions/actions"
-const PanelCard = (props) => { 
- 
+import { setProductAction } from "../../Redux/actions/actions";
+import useFetch from "../../Custom Hook/useFetch";
+import useAxios from "../../Custom Hook/useAxios";
+const PanelCard = () => {
+  const [documentNumber, setDocumentNumber] = useState(null);
   const [selectedAdmType, setSelectedAdmType] = useState(null);
+  const [admNumber, setAdmNumber] = useState(null);
+  //const [agents, setAgents] = useState([]);
+  const [agent, setAgent] = useState(null);
+  const [products, setProducts] = useState([{}]);
+  // const [users, setUsers] = useState([]);
+  const [user, setUser] = useState(null);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const admTypes = [
-    { name: "Issue", code: "ISSUE" },
-    { name: "Refund", code: "REFUND" },
-    { name: "Flown", code: "FLOWN" },
-    { name: "Exchange", code: "EXCHANGE" },
+    { name: "Issue", code: "Issue" },
+    { name: "Refund", code: "Refund" },
+    { name: "Flown", code: "Flown" },
+    { name: "Exchange", code: "Exchange" },
   ];
 
-  let target = "";
-  const navigate = useNavigate();
   const template = (options) => {
     const toggleIcon = options.collapsed
       ? "pi pi-chevron-down"
@@ -44,79 +50,161 @@ const PanelCard = (props) => {
       </div>
     );
   };
-  /**************************************************************** */
-  const [products, setProducts] = useState([{}]);
-  const dispatch = useDispatch();
-  /**************************************************************** */
 
-  const searchAdmFunction = () => {
+  /**************************************************************** */
+  //const { products :prod, error, loaded  } = useAxios("http://localhost:4000/Adms/AllAdms");
+  const SearchAdmFunction = () => {
     console.log("response.ok");
+    if (
+      documentNumber == null &&
+      agent == null &&
+      user == null &&
+      admNumber == null &&
+      selectedAdmType == null
+    ) {
+      axios
+        .get("http://localhost:4000/Adms/AllAdms")
+        .then((response) => {
+          setProducts(response.data);
+          console.log(products);
+          dispatch(setProductAction(response.data));
+          console.log(products);
+        })
+        .catch((error) => {
+          console.log(error.value);
+        });
+      //const { products, error, loaded  } = useAxios("http://localhost:4000/Adms/AllAdms");
+    }
 
-    axios
-      .get("http://localhost:4000/Adms/AllAdms")
-      .then((response) => {
-        setProducts(response.data);
-        console.log(products);
-        dispatch( setProductAction(response.data));
-        console.log(products);
-      })
-      .catch((error) => {
-        console.log(error.value);
-      });
-   
+    if (
+      documentNumber != null &&
+      agent == null &&
+      user == null &&
+      admNumber == null &&
+      selectedAdmType == null
+    ) {
+      axios
+        .get("http://localhost:4000/Adms/AllAdmsFilterDocNum/" + documentNumber)
+        .then((response) => {
+          setProducts(response.data);
+          console.log(products);
+          dispatch(setProductAction(response.data));
+          console.log(products);
+        })
+        .catch((error) => {
+          console.log(error.value);
+        });
+    }
+
+    if (
+      documentNumber == null &&
+      agent != null &&
+      user == null &&
+      admNumber == null &&
+      selectedAdmType == null
+    ) {
+      axios
+        .get(
+          "http://localhost:4000/Adms/AllAdmsFilterAgent/" +
+            agent["Agency Code"]
+        )
+        .then((response) => {
+          setProducts(response.data);
+          console.log(products);
+          dispatch(setProductAction(response.data));
+          console.log(products);
+        })
+        .catch((error) => {
+          console.log(error.value);
+        });
+    }
+
+    if (
+      documentNumber == null &&
+      agent == null &&
+      user != null &&
+      admNumber == null &&
+      selectedAdmType == null
+    ) {
+      axios
+        .get("http://localhost:4000/Adms/AllAdmsFilterUser/" + user["username"])
+        .then((response) => {
+          setProducts(response.data);
+          console.log(products);
+          dispatch(setProductAction(response.data));
+          console.log(products);
+        })
+        .catch((error) => {
+          console.log(error.value);
+        });
+    }
+
+    if (
+      documentNumber == null &&
+      agent == null &&
+      user == null &&
+      admNumber != null &&
+      selectedAdmType == null
+    ) {
+      axios
+        .get("http://localhost:4000/Adms/AllAdmsFilterAdmNum/" + admNumber)
+        .then((response) => {
+          setProducts(response.data);
+          console.log(products);
+          dispatch(setProductAction(response.data));
+          console.log(products);
+        })
+        .catch((error) => {
+          console.log(error.value);
+        });
+    }
+
+    if (
+      documentNumber == null &&
+      agent == null &&
+      user == null &&
+      admNumber == null &&
+      selectedAdmType != null
+    ) {
+      axios
+        .get(
+          "http://localhost:4000/Adms/AllAdmsFilterAdmType/" +
+            selectedAdmType["name"]
+        )
+        .then((response) => {
+          setProducts(response.data);
+          console.log(products);
+          dispatch(setProductAction(response.data));
+          console.log(products);
+        })
+        .catch((error) => {
+          console.log(error.value);
+        });
+    }
+  };
+  const navigateToCreateStep1 = () => {
+    // 👇️ navigate to /contacts
+    navigate("/CreateStep1");
   };
 
+  const {
+    data: agents,
+    loading: loading1,
+    error: error1,
+  } = useFetch("http://localhost:4000/Agents/AllAgents");
 
-
-
-
-
-
-
-
-  const CreateAdmFunction = () => {
-    target = "/CreateStep1";
-    navigate(target);
-  };
-  ////////  Get Auto Complete Agents ////////////////
-
-  const [agents, setAgents] = useState([]);
-  const [agent, setAgent] = useState({ ["Agency Code"]: "" });
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await fetch("http://localhost:4000/Agents/AllAgents");
-      const newData = await response.json();
-      console.log(newData);
-      console.log(newData[1]["Agency Code"]);
-      setAgents(newData);
-    };
-    fetchData();
-  }, []);
+  //const agents = [...data1];
+  // setAgents(data);
 
   const onChangeMethod = (e) => {
     setAgent(e.value);
   };
 
-  /////////////////////////////////////////////////////
-  const onChangeMethodAdmType = (e) => {
-    setSelectedAdmType(e.value);
-  };
-
-  ////////  Get Auto Complete Agents ////////////////
-
-  const [users, setUsers] = useState([]);
-  const [user, setUser] = useState();
-
-  useEffect(() => {
-    const fetchData1 = async () => {
-      const response1 = await fetch("http://localhost:4000/Users/AllUsers");
-      const newData1 = await response1.json();
-      console.log(newData1);
-      setUsers(newData1);
-    };
-    fetchData1();
-  }, []);
+  const {
+    data: users,
+    loading: loading2,
+    error: error2,
+  } = useFetch("http://localhost:4000/Users/AllUsers");
 
   const onChangeMethodUsername = (e) => {
     setUser(e.value);
@@ -127,7 +215,12 @@ const PanelCard = (props) => {
       <br />
       <Panel headerTemplate={template} toggleable className="ml-5 mr-5 ">
         <div className="flex flex-row  justify-content-space-between gap-5">
-          <InputMask label="Document Number" mask="9999999999" />
+          <InputMask
+            label="Document Number"
+            mask="9999999999"
+            val1={documentNumber}
+            setVal1={(e) => setDocumentNumber(e.value)}
+          />
           <DropDownClear
             label="Agent Code"
             placeholder="Select an Agent"
@@ -137,13 +230,18 @@ const PanelCard = (props) => {
             filterByProps="Agency Code"
             optionLabelProps="Agency Code"
           />
-          <InputMask label="ADM Number" mask="" />
+          <InputMask
+            label="ADM Number"
+            mask="99999999"
+            val1={admNumber}
+            setVal1={(e) => setAdmNumber(e.target.value)}
+          />
           <DropDownClear
             label="ADM Type"
             placeholder="Select ADM Type "
             autoCompleteValues={admTypes}
             selectedValue={selectedAdmType}
-            onChangeMethod={onChangeMethodAdmType}
+            onChangeMethod={(e) => setSelectedAdmType(e.target.value)}
             filterByProps="name"
             optionLabelProps="name"
           />
@@ -161,32 +259,19 @@ const PanelCard = (props) => {
           <PrimeButton
             label="Search"
             icon="pi pi-search"
-            searchFunction={() => dispatch(searchAdmFunction())}
-            classname=""
+            searchFunction={SearchAdmFunction}
           />
 
-          <Link to={target}>
-            <PrimeButton
-              label="Add ADM"
-              icon="pi pi-plus"
-              classname="p-button-success"
-              //     searchFunction={CreateAdmFunction()}
-            />
-          </Link>
+          <PrimeButton
+            label="Add ADM"
+            icon="pi pi-plus"
+            classname="p-button-success"
+            searchFunction={navigateToCreateStep1}
+          />
         </div>
       </Panel>
     </div>
   );
 };
 
-////////////// Se connecter au store pour récuperer le product for the datatable ////////
-// Le state c'est l'état de notre magasin
-
-/*const mapStateToProps = (state) => {
-  return {
-    products:  state.products
-  };
-};
-*/
-/*******************************************************************$ */
 export default PanelCard;

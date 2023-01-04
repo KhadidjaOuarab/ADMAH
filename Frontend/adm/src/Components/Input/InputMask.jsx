@@ -1,8 +1,8 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { InputMask } from "primereact/inputmask";
-function InputPrime({ label,mask }) {
-  const [val1, setVal1] = useState();
+function InputPrime({ label,mask ,val1,setVal1}) {
+  //const [val1, setVal1] = useState();
 
   return (
     <div>
@@ -13,7 +13,7 @@ function InputPrime({ label,mask }) {
           mask={mask}
           value={val1}
           placeholder={mask}
-          onChange={(e) => setVal1(e.value)}
+          onChange={setVal1}
           className="w-15rem h-3rem"
         ></InputMask>
       </div>

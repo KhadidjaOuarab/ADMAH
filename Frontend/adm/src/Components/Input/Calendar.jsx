@@ -2,8 +2,8 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { Calendar } from "primereact/calendar";
 
-function InputPrime({ label }) {
-  const [date3, setDate3] = useState(null);
+function InputPrime({ label,date3 , setDate}) {
+ // const [date3, setDate3] = useState(null);
 
   return (
     <div>
@@ -12,7 +12,7 @@ function InputPrime({ label }) {
         <Calendar
           id="icon"
           value={date3}
-          onChange={(e) => setDate3(e.value)}
+          onChange={setDate}
           showIcon
           className="w-12"
         />

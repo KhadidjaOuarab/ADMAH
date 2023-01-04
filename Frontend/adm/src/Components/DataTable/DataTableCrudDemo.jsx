@@ -5,18 +5,15 @@ import { Column } from "primereact/column";
 import { ProductService } from "../DataTable/ProductService";
 import { Toast } from "primereact/toast";
 import { Button } from "primereact/button";
-import { Rating } from "primereact/rating";
 import { Toolbar } from "primereact/toolbar";
-import { InputTextarea } from "primereact/inputtextarea";
-import { RadioButton } from "primereact/radiobutton";
-import { InputNumber } from "primereact/inputnumber";
 import { Dialog } from "primereact/dialog";
-import { InputText } from "primereact/inputtext";
 import "../DataTable/DataTableDemo.css";
 import axios from "axios";
-import { connect } from "react-redux";
 import { useSelector } from "react-redux";
-
+import { InputTextarea } from 'primereact/inputtextarea';
+import { RadioButton } from 'primereact/radiobutton';
+import { InputNumber } from 'primereact/inputnumber';
+import { InputText } from 'primereact/inputtext';
 function DataTableCrudDemo(props) {
   let emptyADM = {
     id: null,
@@ -53,9 +50,33 @@ function DataTableCrudDemo(props) {
   const [globalFilter, setGlobalFilter] = useState(null);
   const toast = useRef(null);
   const dt = useRef(null);
-  const productService = new ProductService();
 
+  const onInputChange = (e, name) => {
+    const val = (e.target && e.target.value) || '';
+    let _product = {...product};
+    _product[`${name}`] = val;
 
+    setProduct(_product);
+}
+const onCategoryChange = (e) => {
+  let _product = {...product};
+  _product['category'] = e.value;
+  setProduct(_product);
+}
+const onInputNumberChange = (e, name) => {
+  const val = e.value || 0;
+  let _product = {...product};
+  _product[`${name}`] = val;
+
+  setProduct(_product);
+}
+
+  const setSelectedADM = (e) => {
+    setSelectedProducts(e.value);
+    console.log("setSelectedADMvsetSelectedADMvsetSelectedADMvsetSelectedADMv");
+    console.log(e.value);
+    console.log("setSelectedADMvsetSelectedADMvsetSelectedADMvsetSelectedADMv");
+  };
   const openNew = () => {
     setProduct(emptyADM);
     setSubmitted(false);
@@ -115,11 +136,12 @@ function DataTableCrudDemo(props) {
   };
 
   const confirmDeleteProduct = (product) => {
+    console.log("confirmDeleteProduct");
+    console.log(product);
     setProduct(product);
     setDeleteProductDialog(true);
+    console.log("confirmDeleteProduct");
   };
-
-  const copyProduct = (product) => {};
 
   const queryProduct = (product) => {};
 
@@ -128,6 +150,17 @@ function DataTableCrudDemo(props) {
     // setProducts(_products);
     setDeleteProductDialog(false);
     setProduct(emptyADM);
+    console.log("http://localhost:4000/Adms/DeleteAdm/" + product._id);
+    axios
+      .delete("http://localhost:4000/Adms/DeleteAdm/" + product._id)
+      .then((response) => {
+        // setProduct(response.data);
+        console.log(products);
+      })
+      .catch((error) => {
+        console.log(error.value);
+      });
+
     toast.current.show({
       severity: "success",
       summary: "Successful",
@@ -168,9 +201,10 @@ function DataTableCrudDemo(props) {
 
   const deleteSelectedProducts = () => {
     let _products = products.filter((val) => !selectedProducts.includes(val));
-    //  setProducts(_products);
+    setProduct(_products);
     setDeleteProductsDialog(false);
     setSelectedProducts(null);
+
     toast.current.show({
       severity: "success",
       summary: "Successful",
@@ -206,11 +240,7 @@ function DataTableCrudDemo(props) {
           className="p-button-rounded p-button-success mr-2"
           onClick={() => editProduct(rowData)}
         />
-        <Button
-          icon="pi pi-copy"
-          className="p-button-rounded p-button-help"
-          onClick={() => copyProduct(rowData)}
-        />
+
         <Button
           icon="pi pi-trash"
           className="p-button-rounded p-button-danger"
@@ -284,8 +314,7 @@ function DataTableCrudDemo(props) {
             ref={dt}
             value={products}
             selection={selectedProducts}
-            onSelectionChange={(e) => setSelectedProducts(e.value)}
-            dataKey="id"
+            onSelectionChange={setSelectedADM}
             paginator
             rows={10}
             rowsPerPageOptions={[5, 10, 25]}
@@ -347,8 +376,8 @@ function DataTableCrudDemo(props) {
               style={{ minWidth: "10rem" }}
             ></Column>
             <Column
-              field="Username"
-              header="username"
+              field="username"
+              header="Username"
               //  body={statusBodyTemplate}
               sortable
               style={{ minWidth: "4rem" }}
@@ -364,12 +393,120 @@ function DataTableCrudDemo(props) {
         <Dialog
           visible={productDialog}
           style={{ width: "450px" }}
-          header="ADM Details"
+          header="Product Details"
           modal
           className="p-fluid"
           footer={productDialogFooter}
           onHide={hideDialog}
-        ></Dialog>
+        >
+          {product.image && (
+            <img
+              src={`images/product/${product.image}`}
+              onError={(e) =>
+                (e.target.src =
+                  "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png")
+              }
+              alt={product.image}
+              className="product-image block m-auto pb-3"
+            />
+          )}
+          <div className="field">
+            <label htmlFor="name">Name</label>
+            <InputText
+              id="name"
+              value={product.name}
+              onChange={(e) => onInputChange(e, "name")}
+              required
+              autoFocus
+              className={classNames({
+                "p-invalid": submitted && !product.name,
+              })}
+            />
+            {submitted && !product.name && (
+              <small className="p-error">Name is required.</small>
+            )}
+          </div>
+          <div className="field">
+            <label htmlFor="description">Description</label>
+            <InputTextarea
+              id="description"
+              value={product.description}
+              onChange={(e) => onInputChange(e, "description")}
+              required
+              rows={3}
+              cols={20}
+            />
+          </div>
+
+          <div className="field">
+            <label className="mb-3">Category</label>
+            <div className="formgrid grid">
+              <div className="field-radiobutton col-6">
+                <RadioButton
+                  inputId="category1"
+                  name="category"
+                  value="Accessories"
+                  onChange={onCategoryChange}
+                  checked={product.category === "Accessories"}
+                />
+                <label htmlFor="category1">Accessories</label>
+              </div>
+              <div className="field-radiobutton col-6">
+                <RadioButton
+                  inputId="category2"
+                  name="category"
+                  value="Clothing"
+                  onChange={onCategoryChange}
+                  checked={product.category === "Clothing"}
+                />
+                <label htmlFor="category2">Clothing</label>
+              </div>
+              <div className="field-radiobutton col-6">
+                <RadioButton
+                  inputId="category3"
+                  name="category"
+                  value="Electronics"
+                  onChange={onCategoryChange}
+                  checked={product.category === "Electronics"}
+                />
+                <label htmlFor="category3">Electronics</label>
+              </div>
+              <div className="field-radiobutton col-6">
+                <RadioButton
+                  inputId="category4"
+                  name="category"
+                  value="Fitness"
+                  onChange={onCategoryChange}
+                  checked={product.category === "Fitness"}
+                />
+                <label htmlFor="category4">Fitness</label>
+              </div>
+            </div>
+          </div>
+
+          <div className="formgrid grid">
+            <div className="field col">
+              <label htmlFor="price">Price</label>
+              <InputNumber
+                id="price"
+                value={product.price}
+                onValueChange={(e) => onInputNumberChange(e, "price")}
+                mode="currency"
+                currency="USD"
+                locale="en-US"
+              />
+            </div>
+            <div className="field col">
+              <label htmlFor="quantity">Quantity</label>
+              <InputNumber
+                id="quantity"
+                value={product.quantity}
+                onValueChange={(e) => onInputNumberChange(e, "quantity")}
+                integeronly
+              />
+            </div>
+          </div>
+        </Dialog>
 
         <Dialog
           visible={deleteProductDialog}
@@ -386,7 +523,7 @@ function DataTableCrudDemo(props) {
             />
             {product && (
               <span>
-                Are you sure you want to delete <b>{product.name}</b>?
+                Are you sure you want to delete <b>{product.admNumber}</b>?
               </span>
             )}
           </div>
@@ -415,16 +552,4 @@ function DataTableCrudDemo(props) {
   );
 }
 
-////////////// Se connecter au store pour récuperer le product for the datatable ////////
-// Le state c'est l'état de notre magasin
-
-/*const mapStateToProps = state => {
-  return {
-    products : state.products
-  }
-}*/ //
-
-/*******************************************************************$ */
-
-//export default connect(mapStateToProps) (DataTableCrudDemo);
 export default DataTableCrudDemo;

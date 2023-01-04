@@ -6,6 +6,8 @@ const app = express();
 const bp = require("body-parser");
 const usersRouter = require("./Routers/User.route");
 const admsRouter = require("./Routers/Adm.route");
+const citiesRouter = require("./Routers/City.route");
+const currenciesRouter = require("./Routers/Currency.route");
 const agentsRouter = require("./Routers/Agent.route");
 const db = mongoose.connection;
 
@@ -36,6 +38,8 @@ app.get("/", (req, res) => {
 app.use("/Users", usersRouter);
 app.use("/Adms", admsRouter);
 app.use("/Agents", agentsRouter);
+app.use("/Cities", citiesRouter);
+app.use("/Currencies", currenciesRouter);
 app.listen(process.env.PORT, () =>
   console.log(`server connected on port ${process.env.PORT}`)
 );

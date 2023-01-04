@@ -1,5 +1,5 @@
 import { SETPRODUCT } from "../type/type";
-
+import { SETADMINFORMATION } from "../type/type";
 
 export const setProductAction = (payload) => {
  
@@ -9,3 +9,10 @@ export const setProductAction = (payload) => {
     };
   };
 
+  export const setAdmAction = (payload) => {
+ 
+    return {
+      type: SETADMINFORMATION,
+      payload: payload,
+    };
+  };

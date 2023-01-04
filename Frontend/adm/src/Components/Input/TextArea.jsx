@@ -2,9 +2,9 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { InputTextarea } from "primereact/inputtextarea";
 import InputMask from "../Input/InputMask";
-function TextArea({ Textarea }) {
+function TextArea({ Textarea, value14,textareaFunction }) {
   const [countries, setCountries] = useState([]);
-  const [value14, setValue14] = useState("");
+ // const [value14, setValue14] = useState("");
 
   return (
     <div>
@@ -18,7 +18,7 @@ function TextArea({ Textarea }) {
         <InputTextarea
           id="textarea"
           value={value14}
-          onChange={(e) => setValue14(e.target.value)}
+          onChange={textareaFunction}
           rows={10}
           cols={80}
           className="flex flex-column justify-content-center align-items-center gap-4  mb-5"
