@@ -32,11 +32,12 @@ function CreateStep1() {
       setAdmAction({
         exchangeNumber: exchangeNumber,
         exchangedDate: exchangedDate,
-        couponNumber: couponNumber,
-        agentCode: agent,
+        couponNumberExchange: couponNumber,
+        agentCodeExchange: agent,
       })
     );
     navigate("/CreateStep2Refund");
+   
   };
   const onChangeMethod = (e) => {
     setAgent(e.value);

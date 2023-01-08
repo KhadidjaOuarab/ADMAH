@@ -9,6 +9,7 @@ const admsRouter = require("./Routers/Adm.route");
 const citiesRouter = require("./Routers/City.route");
 const currenciesRouter = require("./Routers/Currency.route");
 const agentsRouter = require("./Routers/Agent.route");
+
 const db = mongoose.connection;
 
 require("dotenv").config();
@@ -40,6 +41,10 @@ app.use("/Adms", admsRouter);
 app.use("/Agents", agentsRouter);
 app.use("/Cities", citiesRouter);
 app.use("/Currencies", currenciesRouter);
+
 app.listen(process.env.PORT, () =>
   console.log(`server connected on port ${process.env.PORT}`)
 );
+
+// Sequence
+

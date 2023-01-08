@@ -3,8 +3,8 @@ import reducerAuth from "./reducerAuth";
 import reducerSetProduct from "./reducerSetProduct";
 import createAdmReducer from "./createAdmReducer"
 const rootReducer = combineReducers({
-    reducerAuth: reducerAuth,
-    reducerSetProduct: reducerSetProduct,
+   // reducerAuth: reducerAuth,
+     reducerSetProduct: reducerSetProduct,
     createAdmReducer : createAdmReducer
 })
 

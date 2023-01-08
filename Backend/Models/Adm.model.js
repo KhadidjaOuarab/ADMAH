@@ -8,98 +8,98 @@ const Schema = mongoose.Schema;
 const admSchema = new Schema({
   admNo: {
     type: String,
-    required: true,
-    unique: true,
+    required: false,
+    unique: false,
   },
   agentCode: {
     type: String,
-    required: true,
+    required: false,
   },
   documentNumber: {
     type: String,
-    required: true,
+    required: false,
   },
   admType: {
     type: String,
-    required: true,
+    required: false,
   },
   anomaly: {
     type: String,
-    required: true,
+    required: false,
   },
   currencyCode: {
     type: String,
-    required: true,
+    required: false,
   },
   totalAmount: {
-    type: Number,
-    required: true,
+    type: String,
+    required: false,
   },
   username: {
     type: String,
-    required: true,
+    required: false,
   },
   issueCity: {
     type: String,
-    required: true,
+    required: false,
   },
   issueDate: {
     type: Date,
-    required: true,
+    required: false,
   },
   flightNumber: {
     type: String,
-    required: true,
+    required: false,
   },
   flightDate: {
     type: Date,
-    required: true,
+    required: false,
   },
   froms: {
     type: String,
-    required: true,
+    required: false,
   },
   tos: {
     type: String,
-    required: true,
+    required: false,
   },
 
   exchangeNumber: {
     type: String,
-    required: true,
+    required: false,
   },
 
   exchangedDate: {
     type: Date,
-    required: true,
+    required: false,
   },
   couponNumberExchange: {
     type: String,
-    required: true,
+    required: false,
   },
 
   agentCodeExchange: {
     type: String,
-    required: true,
+    required: false,
   },
 
   refundNumber: {
     type: String,
-    required: true,
+    required: false,
   },
 
   refundDate: {
     type: Date,
-    required: true,
+    required: false,
   },
   couponNumberRefund: {
     type: String,
-    required: true,
+    required: false,
   },
 
   agentCodeRefund: {
     type: String,
-    required: true,
+    required: false,
   },
 });
 /*

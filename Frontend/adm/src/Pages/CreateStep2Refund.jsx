@@ -33,8 +33,8 @@ function CreateStep1() {
       setAdmAction({
         refundNumber: refundNumber,
         refundDate: refundDate,
-        couponNumber: couponNumber,
-        agentCode: agent,
+        couponNumberRefund: couponNumber,
+        agentCodeRefund: agent,
       })
     );
 

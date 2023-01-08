@@ -32,7 +32,7 @@ function CreateStep1() {
     dispatch(
       setAdmAction({
         anomaly: anomaly,
-        currency: currency,
+        currencyCode: currency,
         totalAmount: totalAmount,
         
       })
@@ -69,7 +69,7 @@ function CreateStep1() {
           filterByProps="Currency Alpha Code"
           optionLabelProps="Currency Alpha Code"
         />
-        <InputNumberPrime label="Total Amount"  value7={totalAmount} setVal7={setTotalAmount}/>
+        <InputNumberPrime label="Total Amount"  value7={totalAmount} setVal7={(e) => setTotalAmount(e.target.value)}/>
       </div>
       <div className="flex flex-row  justify-content-center align-items-center gap-3">
         <PrimeButton

@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import React from "react";
 
-const useFetch = (URL) => {
+const usePost = (URL) => {
    
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -10,7 +10,7 @@ const useFetch = (URL) => {
   useEffect(() => {
     setLoading(true);
     axios
-      .get(URL)
+      .post(URL)
       .then((response) => {
         setData(response.data);
       })
@@ -26,4 +26,4 @@ const useFetch = (URL) => {
   console.log("MMMMMMMMMMM");*/
   return { data ,loading,error};
 }
-export default useFetch;
+export default usePost;

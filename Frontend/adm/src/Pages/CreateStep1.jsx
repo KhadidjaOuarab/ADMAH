@@ -15,9 +15,11 @@ import PrimeButton from "../Components/Button/ButtonPrimeIcon";
 import { Routes, Route, Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
+import usePost from "../Custom Hook/usePost";
 import useFetch from "../Custom Hook/useFetch";
 import { useDispatch } from "react-redux";
 import { setAdmAction } from "../Redux/actions/actions";
+import axios from "axios";
 function CreateStep1() {
   const [selectedAdmType, setSelectedAdmType] = useState(null);
   const [issueDate, setIssueDate] = useState(null);
@@ -30,7 +32,7 @@ function CreateStep1() {
   const [couponNumber, setCouponNumber] = useState(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  
   const admInformationFunction = () => {
     dispatch(
       setAdmAction({
@@ -40,6 +42,7 @@ function CreateStep1() {
         couponNumber: couponNumber,
         issueCity: city,
         issueDate: issueDate,
+        admNo:  Math.floor(Date.now() / 1000) + (+documentNumber),
       })
     );
     navigate("/CreateStep2Flown");

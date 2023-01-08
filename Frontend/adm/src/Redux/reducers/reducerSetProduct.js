@@ -6,8 +6,8 @@ const initState = {
 
 
 const reducerSetProduct = (state = initState, action) => {
-  console.log("Appel du Store et transmettre action ???????????");
-  console.log(action.payload );
+ // console.log("Appel du Store et transmettre action ???????????");
+ // console.log(action.payload );
   // Check to see if the reducer cares about this action
   if (action.type === SETPRODUCT) {
     // If so, make a copy of `state`

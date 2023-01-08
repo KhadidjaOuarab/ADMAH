@@ -1,36 +1,125 @@
 import React from "react";
 import homeCss from "../Pages/Home.css";
-import Search from "../Components/Search/Search";
 import MenuBar from "../Components/Menu/MenuBar";
-import PanelCard from "../Components/Panel/PanelCard";
-import DataTable from "../Components/DataTable/DataTableCrudWithoutExport";
 import BreadCrumbDemo from "../Components/Menu/BreadCrumb";
 import MenuSteps from "../Components/Menu/MenuSteps";
-import InputMask from "../Components/Input/InputMask";
-import DropDownClear from "../Components/Input/DropDownAdvanced";
-import StepCss from "../Pages/CreateStep1";
-import FlexBox from "../Components/FlexBox/FlexBox";
-import CalendarInput from "../Components/Input/Calendar";
 import PrimeButton from "../Components/Button/ButtonPrimeIcon";
-import { Routes, Route, Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import axios from "axios";
+import moment from "moment";
 function CreateStep1() {
   const navigate = useNavigate();
   const loginFunction = () => {
     navigate("/CreateStep1");
   };
-  let products = null;
-  const productsObject = useSelector((state) => state.createAdmReducer.state);
-  if (productsObject) {
-    products = Object.values(productsObject);
-  }
+
+  const SaveADM = () => {
+    axios
+      .post("http://localhost:4000/Adms/CreateAdm",products)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((err) => {
+       console.log(err);
+      })
+      .finally(() => {});
+  };
+  // let products = null;
+  // const products = useSelector((state) => state.createAdmReducer.state);
+  //if (productsObject) {
+  //  products = Object.values(productsObject);
+  //}
+  const agentCode = useSelector((state) => state.createAdmReducer.agentCode);
+  const flightNumber = useSelector(
+    (state) => state.createAdmReducer.flightNumber
+  );
+  const documentNumber = useSelector(
+    (state) => state.createAdmReducer.documentNumber
+  );
+  const couponNumber = useSelector(
+    (state) => state.createAdmReducer.couponNumber
+  );
+  const admType = useSelector((state) => state.createAdmReducer.admType);
+  const admNo = useSelector((state) => state.createAdmReducer.admNo);
+  const anomaly = useSelector((state) => state.createAdmReducer.anomaly);
+  const currencyCode = useSelector(
+    (state) => state.createAdmReducer.currencyCode
+  );
+  const totalAmount = useSelector(
+    (state) => state.createAdmReducer.totalAmount
+  );
+  const username = useSelector((state) => state.createAdmReducer.username);
+  const issueCity = useSelector((state) => state.createAdmReducer.issueCity);
+  const issueDate = useSelector((state) => state.createAdmReducer.issueDate);
+  const flightDate = useSelector((state) => state.createAdmReducer.flightDate);
+  const froms = useSelector((state) => state.createAdmReducer.froms);
+  const tos = useSelector((state) => state.createAdmReducer.tos);
+  const exchangeNumber = useSelector(
+    (state) => state.createAdmReducer.exchangeNumber
+  );
+  const exchangedDate = useSelector(
+    (state) => state.createAdmReducer.exchangedDate
+  );
+  const couponNumberExchange = useSelector(
+    (state) => state.createAdmReducer.couponNumberExchange
+  );
+  const agentCodeExchange = useSelector(
+    (state) => state.createAdmReducer.agentCodeExchange
+  );
+  const refundNumber = useSelector(
+    (state) => state.createAdmReducer.refundNumber
+  );
+  const refundDate = useSelector((state) => state.createAdmReducer.refundDate);
+  const couponNumberRefund = useSelector(
+    (state) => state.createAdmReducer.couponNumberRefund
+  );
+  const agentCodeRefund = useSelector(
+    (state) => state.createAdmReducer.agentCodeRefund
+  );
+/*
+  function getNextSequenceValue(sequenceName){
+    var sequenceDocument = db.counters.findAndModify({
+       query:{_id: sequenceName },
+       update: {$inc:{sequence_value:1}},
+       new:true
+    });
+    return sequenceDocument.sequence_value;
+ }
+*/
+  const products = [
+    {
+      admNo: admNo,
+      agentCode: agentCode,
+      documentNumber: documentNumber,
+      couponNumber: couponNumber,
+      admType: admType,
+      anomaly: anomaly,
+      currencyCode: currencyCode,
+      totalAmount: totalAmount,
+      username: username,
+      issueCity: issueCity,
+      issueDate: issueDate,
+      flightNumber: flightNumber,
+      flightDate: flightDate,
+      froms: froms,
+      tos: tos,
+      exchangeNumber: exchangeNumber,
+      exchangedDate: exchangedDate,
+      couponNumberExchange: couponNumberExchange,
+      agentCodeExchange: agentCodeExchange,
+      refundNumber: refundNumber,
+      refundDate: refundDate,
+      couponNumberRefund: couponNumberRefund,
+      agentCodeRefund: agentCodeRefund,
+    },
+  ];
 
   console.log("useSelectoruseSelectoruseSelectoruseSelector");
   console.log(products);
   console.log("useSelectoruseSelectoruseSelectoruseSelector");
   return (
-    <div>
+    <>
       <MenuBar />
       <BreadCrumbDemo />
       <div className="flex flex-column m-4  align-items-center justify-content-between gap-2">
@@ -38,56 +127,132 @@ function CreateStep1() {
         <label>Summary</label>
       </div>
       <MenuSteps />
-
-      <DataTable
-        header1={"Adm No"}
-        header2={"Agent Code"}
-        header3={"Document No"}
-        header4={"Adm Type"}
-        header5={"Anomaly"}
-        header6={"Currency Code"}
-        header7={"Total Amount"}
-        header8={"Username"}
-        field={"admNo"}
-        field1={"agentCode"}
-        field2={"documentNumber"}
-        field3={"admType"}
-        field4={"anomaly"}
-        field5={"currencyCode"}
-        field6={"totalAmount"}
-        field7={"Username"}
-        products={products}
-      />
-      <DataTable
-        header1={"Flight Date"}
-        header2={"Flight Number"}
-        header3={"From"}
-        header4={"To"}
-        field={"flightDate"}
-        field1={"flightNumber"}
-        field2={"froms"}
-        field3={"tos"}
-      />
-      <DataTable
-        header1={"Exchange Date"}
-        header2={"Document Number"}
-        header3={"Coupon No"}
-        header4={"Agent Code"}
-        field={"exchangeDate"}
-        field1={"exchangeNumber"}
-        field2={"couponNumberExchange"}
-        field3={"agentCodeExchange"}
-      />
-      <DataTable
-        header1={"Refund Date"}
-        header2={"Document Number"}
-        header3={"Coupon No"}
-        header4={"Agent Code"}
-        field={"refundDate"}
-        field1={"refundNumber"}
-        field2={"couponNumberRefund"}
-        field3={"agentCodeRefund"}
-      />
+      {React.Children.toArray(
+        products.map((ele) => {
+          return (
+            <table className="customers m-4 pr-4">
+              <thead>
+                <tr>
+                  <th>ADM No</th>
+                  <th>ADM Type</th>
+                  <th>Agent Code</th>
+                  <th>Document No</th>
+                  <th>Coupon No</th>
+                  <th>Issue Date</th>
+                  <th>Issue City</th>
+                </tr>
+              </thead>
+              <tbody className=" mb-4">
+                <tr>
+                  <td>{ele.admNo ? ele.admNo : ""}</td>
+                  <td>{ele.admType ? ele.admType["code"] : ""}</td>
+                  <td>{ele.agentCode ? ele.agentCode["Agency Code"] : ""}</td>
+                  <td>{ele.documentNumber ? ele.documentNumber : ""}</td>
+                  <td>{ele.couponNumber ? ele.couponNumber : ""}</td>
+                  <td>
+                    {ele.issueDate
+                      ? moment(ele.issueDate).format("DD-MM-YYYY")
+                      : ""}
+                  </td>
+                  <td>
+                    {ele.issueCity ? ele.issueCity["City Code Alpha"] : ""}
+                  </td>
+                </tr>
+              </tbody>
+              <thead>
+                <tr>
+                  <th>Flight Date</th>
+                  <th>Flight No</th>
+                  <th>From</th>
+                  <th>To </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    {ele.flightDate
+                      ? moment(ele.flightDate).format("DD-MM-YYYY")
+                      : ""}
+                  </td>
+                  <td>{ele.flightNumber ? ele.flightNumber : ""}</td>
+                  <td>{ele.froms ? ele.froms["City Code Alpha"] : ""}</td>
+                  <td>{ele.tos ? ele.tos["City Code Alpha"] : ""}</td>
+                </tr>
+              </tbody>
+              <thead>
+                <tr>
+                  <th>Exchange Date</th>
+                  <th>Agent Code</th>
+                  <th>Exchanged Doc</th>
+                  <th>Coupon No</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    {ele.exchangedDate
+                      ? moment(ele.exchangedDate).format("DD-MM-YYYY")
+                      : ""}
+                  </td>
+                  <td>
+                    {ele.agentCodeExchange
+                      ? ele.agentCodeExchange["Agency Code"]
+                      : ""}
+                  </td>
+                  <td>{ele.exchangeNumber ? ele.exchangeNumber : ""}</td>
+                  <td>
+                    {ele.couponNumberExchange ? ele.couponNumberExchange : ""}
+                  </td>
+                </tr>
+              </tbody>
+              <thead>
+                <tr>
+                  <th>Refund Date</th>
+                  <th>Agent Code</th>
+                  <th>Refunded Doc</th>
+                  <th>Coupon No</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    {ele.refundDate
+                      ? moment(ele.refundDate).format("DD-MM-YYYY")
+                      : ""}
+                  </td>
+                  <td>
+                    {ele.agentCodeRefund
+                      ? ele.agentCodeRefund["Agency Code"]
+                      : ""}
+                  </td>
+                  <td>{ele.refundNumber ? ele.refundNumber : ""}</td>
+                  <td>
+                    {ele.couponNumberRefund ? ele.couponNumberRefund : ""}
+                  </td>
+                </tr>
+              </tbody>
+              <thead>
+                <tr>
+                  <th>Anomaly</th>
+                  <th>Currency Code</th>
+                  <th>Total Amount</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>{ele.anomaly ? ele.anomaly : ""}</td>
+                  <td>
+                    {ele.currencyCode
+                      ? ele.currencyCode["Currency Alpha Code"]
+                      : ""}
+                  </td>
+                  <td>{ele.totalAmount ? ele.totalAmount : ""} </td>
+                </tr>
+              </tbody>
+            </table>
+          );
+        })
+      )}
 
       <div className="flex flex-row mt-5 justify-content-center align-items-center gap-3">
         <PrimeButton
@@ -99,11 +264,11 @@ function CreateStep1() {
         <PrimeButton
           label="Save Changes"
           icon="pi pi-check"
-          searchFunction={loginFunction}
+          searchFunction={SaveADM}
           classname="p-button-success w-20rem"
         />
       </div>
-    </div>
+    </>
   );
 }
 

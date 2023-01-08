@@ -19,6 +19,6 @@ routerAdm.get('/AllAdmsFilterAgent/:agent', admController.getAllAdmsByFilterAgen
 routerAdm.get('/AllAdmsFilterUser/:user', admController.getAllAdmsByFilterUser);
 
 routerAdm.delete('/DeleteAdm/:id', admController.deleteADM);
-
+routerAdm.post('/CreateAdm', admController.createADM);
 
 module.exports = routerAdm;

@@ -15,6 +15,7 @@ function InputPrime({ label,date3 , setDate}) {
           onChange={setDate}
           showIcon
           className="w-12"
+          dateFormat="dd-mm-yy" 
         />
       </div>
     </div>

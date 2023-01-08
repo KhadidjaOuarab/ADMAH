@@ -50,7 +50,7 @@ function DataTableCrudWithoutExport({
   };
 
   //const [products, setProducts] = useState(null);
-  const dt = useRef(null);
+  //const dt = useRef(null);
 
   return (
     <div>
@@ -58,7 +58,7 @@ function DataTableCrudWithoutExport({
         <div className="card">
           <DataTable
             className="ml-5 mr-5"
-            ref={dt}
+          //  ref={dt}
             value={products}
             rows={10}
             responsiveLayout="scroll"

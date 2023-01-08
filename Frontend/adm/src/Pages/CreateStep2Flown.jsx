@@ -29,11 +29,12 @@ function CreateStep1() {
       setAdmAction({
         flightNumber: flightNumber,
         flightDate: flightDate,
-        froms: froms,
-        tos: tos,
+        froms: from,
+        tos: to,
       })
     );
-    navigate("/CreateStep2Exchange");
+   navigate("/CreateStep2Exchange");
+   
   };
 
   //const [froms, setFroms] = useState([]);
