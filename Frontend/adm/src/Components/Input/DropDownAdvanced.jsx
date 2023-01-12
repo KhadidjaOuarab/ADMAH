@@ -2,7 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { Dropdown } from "primereact/dropdown";
 
-function InputPrime({label, placeholder,autoCompleteValues,selectedValue,onChangeMethod,filterByProps,optionLabelProps}) {
+function InputPrime({label, placeholder,autoCompleteValues,selectedValue,onChangeMethod,filterByProps,optionLabelProps,defaultValue}) {
   //const [countries, setCountries] = useState([]);
   //const [selectedCountry, setSelectedCountry] = useState(null);
 
@@ -62,7 +62,7 @@ function InputPrime({label, placeholder,autoCompleteValues,selectedValue,onChang
       //  valueTemplate={selectedCountryTemplate}
       //  itemTemplate={countryOptionTemplate}
         className="w-15rem h-3rem"
-        
+        defaultValue={defaultValue}
       />
     </div>
   );

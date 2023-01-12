@@ -199,6 +199,13 @@ const PanelCard = () => {
   const onChangeMethod = (e) => {
     setAgent(e.value);
   };
+  const reset = (e) => {
+    setAgent(null);
+    setDocumentNumber(null);
+    setAdmNumber(null);
+    admTypes = [{}];
+    setUser(null);
+  };
 
   const {
     data: users,
@@ -268,6 +275,10 @@ const PanelCard = () => {
             classname="p-button-success"
             searchFunction={navigateToCreateStep1}
           />
+
+          <Link className="mt-3" onClick={reset}>
+            Clear
+          </Link>
         </div>
       </Panel>
     </div>

@@ -114,8 +114,6 @@ admController.deleteADM = async function (req, res) {
 };
 
 admController.createADM = async function (req, res) {
-
-
   const agentCode = req.body[0].agentCode;
   const documentNumber = req.body[0].documentNumber;
   const couponNumber = req.body[0].couponNumber;
@@ -138,51 +136,43 @@ admController.createADM = async function (req, res) {
   const anomaly = req.body[0].anomaly;
   const currencyCode = req.body[0].currencyCode;
   const totalAmount = req.body[0].totalAmount;
-  //const username = req.body[0].username;
- 
-  
- 
+  const username = req.body[0].username;
 
-  const products = 
-    {
-      admNo: admNo,
-      agentCode: agentCode["Agency Code"],
-      documentNumber: documentNumber,
-      couponNumber: couponNumber,
-      admType: admType["name"],
-      issueCity: issueCity["City Code Alpha"],
-      issueDate: issueDate,
-      flightNumber: flightNumber,
-      flightDate: flightDate,
-      froms: froms["City Code Alpha"],
-      tos: tos["City Code Alpha"],
-      exchangeNumber: exchangeNumber,
-      exchangedDate: exchangedDate,
-      couponNumberExchange: couponNumberExchange,
-      agentCodeExchange: agentCodeExchange["Agency Code"],
-      refundNumber: refundNumber,
-      refundDate: refundDate,
-      couponNumberRefund: couponNumberRefund,
-      agentCodeRefund: agentCodeRefund["Agency Code"],
-      anomaly: anomaly,
-      currencyCode: currencyCode["Currency Alpha Code"],
-      totalAmount: totalAmount,
-     // username: username,
-     
-     
-      
-     
-    }
-  ;
+  const products = {
+    admNo: admNo,
+    agentCode: agentCode ? agentCode["Agency Code"] : "",
+    documentNumber: documentNumber,
+    couponNumber: couponNumber,
+    admType: admType ? admType["name"] : "",
+    issueCity: issueCity ? issueCity["City Code Alpha"] : "",
+    issueDate: issueDate,
+    flightNumber: flightNumber,
+    flightDate: flightDate,
+    froms: froms ? froms["City Code Alpha"] : "",
+    tos: tos ? tos["City Code Alpha"] : "",
+    exchangeNumber: exchangeNumber,
+    exchangedDate: exchangedDate,
+    couponNumberExchange: couponNumberExchange,
+    agentCodeExchange: agentCodeExchange
+      ? agentCodeExchange["Agency Code"]
+      : "",
+    refundNumber: refundNumber,
+    refundDate: refundDate,
+    couponNumberRefund: couponNumberRefund,
+    agentCodeRefund: agentCodeRefund ? agentCodeRefund["Agency Code"] : "",
+    anomaly: anomaly,
+    currencyCode: currencyCode ? currencyCode["Currency Alpha Code"] : "",
+    totalAmount: totalAmount,
+    username: username ? username["username"] : "",
+  };
   console.log("admadmadmadmadmadmadmadmadmadmadmadm");
-  console.log(req.body[0])
+  console.log(req.body[0]);
   console.log("admadmadmadmadmadmadmadmadmadmadmadm");
   const adm = new AdmModel(products);
- 
+
   try {
     await adm.save();
     console.log("saved successefully ");
-
   } catch (error) {
     res.status(500).send(error);
 
@@ -201,4 +191,62 @@ admController.createADM = async function (req, res) {
   }
 };
 
+admController.updateADM = async function (req, res) {
+  console.log("admadmadmadmadmadmadmadmadmadmadmadm");
+  console.log(req.body[0].admNo);
+  console.log("admadmadmadmadmadmadmadmadmadmadmadm");
+  let adm;
+
+  try {
+    adm = await AdmModel.findOneAndUpdate(
+      { guid: req.body[0].admNo }, //req.body.admNo
+      {
+        $set: {
+          agentCode: req.body[0].agentCode["data"],
+          documentNumber: req.body[0].documentNumber,
+          couponNumber: req.body[0].couponNumber,
+          admType: req.body[0].admType["name"],
+          anomaly: req.body[0].anomaly,
+          currencyCode: req.body[0].currencyCode,
+          totalAmount: req.body[0].totalAmount,
+          username: req.body[0].username,
+          issueCity: req.body[0].issueCity["Issue City"],
+          issueDate: req.body[0].issueDate,
+          flightNumber: req.body[0].flightNumber,
+          flightDate: req.body[0].flightDate,
+          froms: req.body[0].froms,
+          tos: req.body[0].tos,
+          exchangeNumber: req.body[0].exchangeNumber,
+          exchangedDate: req.body[0].exchangedDate,
+          couponNumberExchange: req.body[0].couponNumberExchange,
+          agentCodeExchange: req.body[0].agentCodeExchange,
+          refundNumber: req.body[0].refundNumber,
+          refundDate: req.body[0].refundDate,
+          couponNumberRefund: req.body[0].couponNumberRefund,
+          agentCodeRefund: req.body[0].agentCodeRefund,
+        },
+      },
+      { new: true }
+    );
+    console.log("updated successefully ");
+    if (adm) {
+      res.send(adm);
+    }
+  } catch (error) {
+    res.status(500).send(error);
+
+    let e = error;
+    if (error.response) {
+      e = error.response.data; // data, status, headers
+      if (error.response.data && error.response.data.error) {
+        e = error.response.data.error; // my app specific keys override
+      }
+    } else if (error.message) {
+      e = error.message;
+    } else {
+      e = "Unknown error occured";
+    }
+    console.log(e);
+  }
+};
 module.exports = admController;

@@ -6,9 +6,10 @@ import Button from "../Button/Button";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Routes, Route, Link } from "react-router-dom";
-import {connect} from "react-redux"
+import { connect } from "react-redux";
 import { useNavigate } from "react-router-dom";
-
+import { useDispatch } from "react-redux";
+import {setLogin} from "../../Redux/actions/actions"
 function Card() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -17,8 +18,8 @@ function Card() {
     username: username,
     password: password,
   });
-  let target = "";
 
+  const dispatch = useDispatch();
 
   const getValueUsername = (e) => {
     setUsername(e.target.value);
@@ -29,20 +30,19 @@ function Card() {
     setPassword(ee.target.value);
     setUser({ username: username, password: ee.target.value });
   };
- 
-  const loginFunction = (e, target) => {
+
+  const loginFunction = (e) => {
     console.log("111111111111111111111111111111111111");
     console.log(username);
     console.log("111111111111111111111111111111111111");
     axios
       .post("http://localhost:4000/Users/login", user)
       .then((response) => {
-        target = "/home";
-        navigate(target);
+        dispatch(setLogin(user));
+        navigate("/home");
       })
       .catch((error) => {
         console.log(error.value);
-        target = "/";
       });
   };
 
@@ -71,17 +71,16 @@ function Card() {
           onChangeFunction={getValuePassword}
         />
       </div>
-      <Link to={target}>
-        <Button
-          button="button"
-          ButtonLabel="Login"
-          onClickFunction={(e) => loginFunction(e, target)}
-        />
-      </Link>
+
+      <Button
+        button="button"
+        ButtonLabel="Login"
+        onClickFunction={(e) => loginFunction(e)}
+      />
 
       <Label labelClass="LabelPurpleMedium" label="Forgot Password?" />
     </div>
   );
 }
 
-export default  Card;
+export default Card;

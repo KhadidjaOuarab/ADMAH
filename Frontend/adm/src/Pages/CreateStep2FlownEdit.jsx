@@ -18,10 +18,34 @@ import { useState, useEffect } from "react";
 import useFetch from "../Custom Hook/useFetch";
 import { useDispatch } from "react-redux";
 import { setAdmAction } from "../Redux/actions/actions";
+import { useSelector } from "react-redux";
+import InputString from "../Components/Input/InputMaskString";
 
-function CreateStep2Flown() {
-  const [flightNumber, setFlightNumber] = useState(null);
-  const [flightDate, setFlightDate] = useState(null);
+function CreateStep2FlownEdit() {
+  //***************************************************************************** */
+  console.log("%%%%%%%%%%%%   AVANT SELECTOR  %%%%%%%%%%%%%%%%%%%");
+  const productsSelector = useSelector(
+    (state) => state.reducerSetProductEdit.state
+  );
+  const [flightNumber, setFlightNumber] = useState(
+    productsSelector[0].flightNumber
+  );
+  const [flightDate, setFlightDate] = useState(
+    new Date(productsSelector[0].flightDate)
+  );
+  const [froms, setFroms] = useState(productsSelector[0].froms);
+  const [tos, setTos] = useState(productsSelector[0].tos);
+  const dispatch = useDispatch();
+  console.log("agentCode");
+  console.log(productsSelector);
+  console.log(productsSelector[0].froms);
+  console.log("agentCode");
+  console.log(
+    "useSelectoruseSelectoruseSelectoruseSelectoruseSelectoruseSelector"
+  );
+  //const [tos, setTos] = useState([]);
+  //const [froms, setFroms] = useState([]);
+  //**************************************************************************** */
 
   const navigate = useNavigate();
   const flownInformationFunction = () => {
@@ -29,31 +53,12 @@ function CreateStep2Flown() {
       setAdmAction({
         flightNumber: flightNumber,
         flightDate: flightDate,
-        froms: from,
-        tos: to,
+        froms: froms,
+        tos: tos,
       })
     );
-   navigate("/CreateStep2Exchange");
-   
+    navigate("/CreateStep2ExchangeEdit");
   };
-
-  //const [froms, setFroms] = useState([]);
-  const [from, setFrom] = useState(null);
-  //const [tos, setTos] = useState([]);
-  const [to, setTo] = useState(null);
-  const dispatch = useDispatch();
-
-  const {
-    data: froms,
-    loading: loading1,
-    error: error1,
-  } = useFetch("http://localhost:4000/Cities/AllCities");
-
-  const {
-    data: tos,
-    loading: loading2,
-    error: error2,
-  } = useFetch("http://localhost:4000/Cities/AllCities");
 
   return (
     <div>
@@ -74,14 +79,19 @@ function CreateStep2Flown() {
           />
         }
         input2Col1={
-          <DropDownClear
+          /*   <DropDownClear
             label="From"
-            placeholder="Select From "
+            placeholder={productsSelector[0].froms}
             autoCompleteValues={froms}
             selectedValue={from}
             onChangeMethod={(e) => setFrom(e.target.value)}
             filterByProps="City Code Alpha"
             optionLabelProps="City Code Alpha"
+          />*/
+          <InputString
+            label="From"
+            val1={froms}
+            setVal1={(e) => setFroms(e.value)}
           />
         }
         input1Col2={
@@ -93,14 +103,19 @@ function CreateStep2Flown() {
           />
         }
         input2Col2={
-          <DropDownClear
+          /*   <DropDownClear
             label="To"
-            placeholder="Select To "
+            placeholder={productsSelector[0].tos}
             autoCompleteValues={tos}
             selectedValue={to}
             onChangeMethod={(e) => setTo(e.target.value)}
             filterByProps="City Code Alpha"
             optionLabelProps="City Code Alpha"
+          />*/
+          <InputString
+            label="To"
+            val1={tos}
+            setVal1={(e) => setTos(e.value)}
           />
         }
       />
@@ -110,7 +125,7 @@ function CreateStep2Flown() {
           label="Go Back"
           icon="pi pi-times"
           classname="p-button-secondary w-10rem"
-          searchFunction={flownInformationFunction}
+          //  searchFunction={flownInformationFunction}
         />
         <PrimeButton
           label="Next   "
@@ -123,4 +138,4 @@ function CreateStep2Flown() {
   );
 }
 
-export default CreateStep2Flown;
+export default CreateStep2FlownEdit;

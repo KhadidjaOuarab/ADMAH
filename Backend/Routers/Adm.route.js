@@ -9,16 +9,14 @@ const verifyToken = require('../middleware/authMiddleware');
 // Adding a couple of routes to the router using the get() method. After we export the route object
 
 routerAdm.get('/AllAdms', admController.getAllAdms);
-routerAdm.get('/CreateAdm', admController.getAllAdms);
-
-
 routerAdm.get('/AllAdmsFilterDocNum/:documentNumber', admController.getAllAdmsByFilterDocNum);
 routerAdm.get('/AllAdmsFilterAdmNum/:admNumber', admController.getAllAdmsByFilterAdmNum);
 routerAdm.get('/AllAdmsFilterAdmType/:selectedAdmType', admController.getAllAdmsByFilterAdmTypes);
 routerAdm.get('/AllAdmsFilterAgent/:agent', admController.getAllAdmsByFilterAgent);
 routerAdm.get('/AllAdmsFilterUser/:user', admController.getAllAdmsByFilterUser);
-
 routerAdm.delete('/DeleteAdm/:id', admController.deleteADM);
 routerAdm.post('/CreateAdm', admController.createADM);
+routerAdm.put('/UpdateAdm/:id', admController.updateADM);
 
+routerAdm.get('/AllAdmsFilter(/:documentNumber)/:admNumber/:selectedAdmType/:agent', admController.getAllAdmsByFilter);
 module.exports = routerAdm;

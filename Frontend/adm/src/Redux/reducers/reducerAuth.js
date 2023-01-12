@@ -1,10 +1,19 @@
+import { SETLOGIN } from "../type/type";
 const initState = {
+  username: "",
   isLog: false,
 };
 
 const reducerAuth = (state = initState, action) => {
-  console.log("Appel du Store et transmettre action ???????????");
-  if (action.type === "IsLogin") {
+  console.log("SETLOGINSETLOGINSETLOGINSETLOGINSETLOGIN");
+  console.log(state);
+  console.log("SETLOGINSETLOGINSETLOGINSETLOGINSETLOGIN");
+  if (action.type === "SETLOGIN") {
+    return { state: action.payload, isLog: true 
+     
+  }
+ 
+  /* if (action.type === "IsLogin") {
     return {
       isLog: true,
     };
@@ -13,8 +22,10 @@ const reducerAuth = (state = initState, action) => {
     return {
       isLog: false,
     };
-  }
-  return state;
-};
+  }*/
+ 
+}
+return state;
+}
 
 export default reducerAuth;

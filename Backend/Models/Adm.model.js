@@ -8,32 +8,32 @@ const Schema = mongoose.Schema;
 const admSchema = new Schema({
   admNo: {
     type: String,
-    required: false,
+    required: true,
     unique: false,
   },
   agentCode: {
     type: String,
-    required: false,
+    required: true,
   },
   documentNumber: {
     type: String,
-    required: false,
+    required: true,
   },
   admType: {
     type: String,
-    required: false,
+    required: true,
   },
   anomaly: {
     type: String,
-    required: false,
+    required: true,
   },
   currencyCode: {
     type: String,
-    required: false,
+    required: true,
   },
   totalAmount: {
     type: String,
-    required: false,
+    required: true,
   },
   username: {
     type: String,

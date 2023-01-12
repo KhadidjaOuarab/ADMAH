@@ -4,7 +4,7 @@ import Search from "../Components/Search/Search";
 import MenuBar from "../Components/Menu/MenuBar";
 import PanelCard from "../Components/Panel/PanelCard";
 import DataTable from "../Components/DataTable/DataTableCrudDemo";
-import BreadCrumbDemo from "../Components/Menu/BreadCrumb";
+import BreadCrumbDemoEdit from "../Components/Menu/BreadCrumbEdit";
 import MenuSteps from "../Components/Menu/MenuSteps";
 import InputMask from "../Components/Input/InputMask";
 import DropDownClear from "../Components/Input/DropDownAdvanced";
@@ -21,34 +21,49 @@ import { useDispatch } from "react-redux";
 import { setAdmAction } from "../Redux/actions/actions";
 import axios from "axios";
 import { useSelector } from "react-redux";
-function CreateStep1() {
-  const [selectedAdmType, setSelectedAdmType] = useState(null);
-  const [issueDate, setIssueDate] = useState(null);
+import  InputString  from "../Components/Input/InputMaskString";
+function CreateStep1Edit() {
 
-  //const [agents, setAgents] = useState([]);
-  const [agent, setAgent] = useState(null);
-  //const [cities, setCities] = useState([]);
-  const [city, setCity] = useState(null);
-  const [documentNumber, setDocumentNumber] = useState(null);
-  const [couponNumber, setCouponNumber] = useState(null);
+  //***************************************************************************** */
+  const productsSelector = useSelector(
+    (state) => state.reducerSetProductEdit.state
+  );
+  const admNo = productsSelector[0].admNo;
+  const [selectedAdmType, setSelectedAdmType] = useState({
+    name: productsSelector[0].admType,
+    code: productsSelector[0].admType,
+  });
+  const [issueDate, setIssueDate] = useState(
+    new Date(productsSelector[0].issueDate)
+  );
+
+  console.log("agentCode");
+  console.log(productsSelector[0]);
+  console.log("agentCode");
+  //**************************************************************************** */
+ 
+  const [agentCode, setAgent] = useState(productsSelector[0].agentCode);
+  const [issueCity, setCity] = useState(productsSelector[0].issueCity);
+  const [documentNumber, setDocumentNumber] = useState( productsSelector[0].documentNumber);
+  const [couponNumber, setCouponNumber] = useState( productsSelector[0].couponNumber);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  
-  const username =  useSelector((state) => state.reducerAuth.state)
+
   const AdmInformationFunction = () => {
     dispatch(
       setAdmAction({
         admType: selectedAdmType,
         documentNumber: documentNumber,
-        agentCode: agent,
+        agentCode: agentCode,
         couponNumber: couponNumber,
-        issueCity: city,
+        issueCity: issueCity,
         issueDate: issueDate,
-        admNo:  Math.floor(Date.now() / 1000) + (+documentNumber),
-        username: username,
+        admNo: admNo,
+        //  username: username,
       })
     );
-    navigate("/CreateStep2Flown");
+    navigate("/CreateStep2FlownEdit");
   };
   const admTypes = [
     { name: "Issue", code: "Issue" },
@@ -56,29 +71,10 @@ function CreateStep1() {
     { name: "Flown", code: "Flown" },
     { name: "Exchange", code: "Exchange" },
   ];
-  const onChangeMethod = (e) => {
-    setAgent(e.value);
-  };
-  const onChangeMethodCity = (e) => {
-    setCity(e.value);
-  };
-
-  const {
-    data: agents,
-    loading: loading1,
-    error: error1,
-  } = useFetch("http://localhost:4000/Agents/AllAgents");
-
-  const {
-    data: cities,
-    loading: loading2,
-    error: error2,
-  } = useFetch("http://localhost:4000/Cities/AllCities");
-
-  return (
+ return (
     <div>
       <MenuBar />
-      <BreadCrumbDemo />
+      <BreadCrumbDemoEdit />
       <div className="flex flex-column  align-items-center justify-content-between gap-2">
         <h1>ADM Information</h1>
         <label>
@@ -92,12 +88,12 @@ function CreateStep1() {
         input1Col1={
           <DropDownClear
             label="ADM Type"
-            placeholder="Select ADM Type "
             autoCompleteValues={admTypes}
             selectedValue={selectedAdmType}
             onChangeMethod={(e) => setSelectedAdmType(e.target.value)}
             filterByProps="name"
             optionLabelProps="name"
+            defaultValue={productsSelector[0].admType}
           />
         }
         input2Col1={
@@ -111,19 +107,25 @@ function CreateStep1() {
         input3Col1={
           <CalendarInput
             label="Issue Date"
+            placeholder={productsSelector[0].issueDate}
             date3={issueDate}
             setDate={(e) => setIssueDate(e.value)}
           />
         }
         input1Col2={
-          <DropDownClear
+          /* <DropDownClear
             label="Agent Code"
-            placeholder="Select an Agent"
             autoCompleteValues={agents}
-            selectedValue={agent}
+           // selectedValue={agent}
             onChangeMethod={onChangeMethod}
             filterByProps="Agency Code"
             optionLabelProps="Agency Code"
+          />*/
+          <InputString
+            label="Agent Code"
+            mask="9999999"
+            val1={agentCode}
+            setVal1={(e) => setAgent(e.value)}
           />
         }
         input2Col2={
@@ -135,15 +137,27 @@ function CreateStep1() {
           />
         }
         input3Col2={
-          <DropDownClear
+          /*  <DropDownClear
             label="Issue City"
-            placeholder="Select Issue City"
+            placeholder={productsSelector[0].issueCity}
             autoCompleteValues={cities}
             selectedValue={city}
             onChangeMethod={onChangeMethodCity}
             filterByProps="City Code Alpha"
             optionLabelProps="City Code Alpha"
           />
+          <InputMask
+          label="Issue City"
+          mask="999"
+          val1={productsSelector[0].issueCity}
+          setVal1={(e) => setCity(e.value)}
+        />*/
+        <InputString
+        label="Issue City"
+        mask="999"
+        val1={issueCity}
+        setVal1={(e) => setCity(e.value)}
+      />
         }
       />
 
@@ -152,7 +166,7 @@ function CreateStep1() {
           label="Go Back"
           icon="pi pi-times"
           classname="p-button-secondary w-10rem"
-          searchFunction={AdmInformationFunction}
+          //   searchFunction={AdmInformationFunction}
         />
         <PrimeButton
           label="Next   "
@@ -165,4 +179,4 @@ function CreateStep1() {
   );
 }
 
-export default CreateStep1;
+export default CreateStep1Edit;

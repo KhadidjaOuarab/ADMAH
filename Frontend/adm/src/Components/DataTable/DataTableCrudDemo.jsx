@@ -10,10 +10,13 @@ import { Dialog } from "primereact/dialog";
 import "../DataTable/DataTableDemo.css";
 import axios from "axios";
 import { useSelector } from "react-redux";
-import { InputTextarea } from 'primereact/inputtextarea';
-import { RadioButton } from 'primereact/radiobutton';
-import { InputNumber } from 'primereact/inputnumber';
-import { InputText } from 'primereact/inputtext';
+import { InputTextarea } from "primereact/inputtextarea";
+import { RadioButton } from "primereact/radiobutton";
+import { InputNumber } from "primereact/inputnumber";
+import { InputText } from "primereact/inputtext";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { selectedAdm } from "../../Redux/actions/actions";
 function DataTableCrudDemo(props) {
   let emptyADM = {
     id: null,
@@ -50,26 +53,26 @@ function DataTableCrudDemo(props) {
   const [globalFilter, setGlobalFilter] = useState(null);
   const toast = useRef(null);
   const dt = useRef(null);
-
+  const navigate = useNavigate();
   const onInputChange = (e, name) => {
-    const val = (e.target && e.target.value) || '';
-    let _product = {...product};
+    const val = (e.target && e.target.value) || "";
+    let _product = { ...product };
     _product[`${name}`] = val;
 
     setProduct(_product);
-}
-const onCategoryChange = (e) => {
-  let _product = {...product};
-  _product['category'] = e.value;
-  setProduct(_product);
-}
-const onInputNumberChange = (e, name) => {
-  const val = e.value || 0;
-  let _product = {...product};
-  _product[`${name}`] = val;
+  };
+  const onCategoryChange = (e) => {
+    let _product = { ...product };
+    _product["category"] = e.value;
+    setProduct(_product);
+  };
+  const onInputNumberChange = (e, name) => {
+    const val = e.value || 0;
+    let _product = { ...product };
+    _product[`${name}`] = val;
 
-  setProduct(_product);
-}
+    setProduct(_product);
+  };
 
   const setSelectedADM = (e) => {
     setSelectedProducts(e.value);
@@ -225,7 +228,14 @@ const onInputNumberChange = (e, name) => {
       </React.Fragment>
     );
   };
-
+  const dispatch = useDispatch();
+  const editADM = () => {
+    console.log("rowDatarowDatarowDatarowDatarowDatarowDatarowData");
+    console.log(selectedProducts);
+    console.log("rowDatarowDatarowDatarowDatarowDatarowDatarowData");
+    dispatch(selectedAdm(selectedProducts));
+    navigate("/CreateStep1Edit");
+  };
   const actionBodyTemplate = (rowData) => {
     return (
       <div className="flex flex-row">
@@ -238,7 +248,8 @@ const onInputNumberChange = (e, name) => {
         <Button
           icon="pi pi-pencil"
           className="p-button-rounded p-button-success mr-2"
-          onClick={() => editProduct(rowData)}
+          // onClick={() => editProduct(rowData)}
+          onClick={editADM}
         />
 
         <Button
@@ -393,23 +404,12 @@ const onInputNumberChange = (e, name) => {
         <Dialog
           visible={productDialog}
           style={{ width: "450px" }}
-          header="Product Details"
+          header="ADM Details"
           modal
           className="p-fluid"
           footer={productDialogFooter}
           onHide={hideDialog}
         >
-          {product.image && (
-            <img
-              src={`images/product/${product.image}`}
-              onError={(e) =>
-                (e.target.src =
-                  "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png")
-              }
-              alt={product.image}
-              className="product-image block m-auto pb-3"
-            />
-          )}
           <div className="field">
             <label htmlFor="name">Name</label>
             <InputText
@@ -425,63 +425,6 @@ const onInputNumberChange = (e, name) => {
             {submitted && !product.name && (
               <small className="p-error">Name is required.</small>
             )}
-          </div>
-          <div className="field">
-            <label htmlFor="description">Description</label>
-            <InputTextarea
-              id="description"
-              value={product.description}
-              onChange={(e) => onInputChange(e, "description")}
-              required
-              rows={3}
-              cols={20}
-            />
-          </div>
-
-          <div className="field">
-            <label className="mb-3">Category</label>
-            <div className="formgrid grid">
-              <div className="field-radiobutton col-6">
-                <RadioButton
-                  inputId="category1"
-                  name="category"
-                  value="Accessories"
-                  onChange={onCategoryChange}
-                  checked={product.category === "Accessories"}
-                />
-                <label htmlFor="category1">Accessories</label>
-              </div>
-              <div className="field-radiobutton col-6">
-                <RadioButton
-                  inputId="category2"
-                  name="category"
-                  value="Clothing"
-                  onChange={onCategoryChange}
-                  checked={product.category === "Clothing"}
-                />
-                <label htmlFor="category2">Clothing</label>
-              </div>
-              <div className="field-radiobutton col-6">
-                <RadioButton
-                  inputId="category3"
-                  name="category"
-                  value="Electronics"
-                  onChange={onCategoryChange}
-                  checked={product.category === "Electronics"}
-                />
-                <label htmlFor="category3">Electronics</label>
-              </div>
-              <div className="field-radiobutton col-6">
-                <RadioButton
-                  inputId="category4"
-                  name="category"
-                  value="Fitness"
-                  onChange={onCategoryChange}
-                  checked={product.category === "Fitness"}
-                />
-                <label htmlFor="category4">Fitness</label>
-              </div>
-            </div>
           </div>
 
           <div className="formgrid grid">
@@ -505,6 +448,17 @@ const onInputNumberChange = (e, name) => {
                 integeronly
               />
             </div>
+          </div>
+          <div className="field">
+            <label htmlFor="description">Anomaly</label>
+            <InputTextarea
+              id="description"
+              value={product.description}
+              onChange={(e) => onInputChange(e, "description")}
+              required
+              rows={3}
+              cols={20}
+            />
           </div>
         </Dialog>
 

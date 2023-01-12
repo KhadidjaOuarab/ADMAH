@@ -6,22 +6,28 @@ import MenuBar from "../Components/Menu/MenuBar";
 import BreadCrumbDemo from "../Components/Menu/BreadCrumb";
 import MenuSteps from "../Components/Menu/MenuSteps";
 import PrimeButton from "../Components/Button/ButtonPrimeIcon";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import moment from "moment";
 
-function CreateStep1() {
+function CreateStep4SummaryEdit() {
   const navigate = useNavigate();
   const loginFunction = () => {
     navigate("/CreateStep1");
   };
   const toast = useRef(null);
-  const SaveADM = () => {
+  const EditADM = () => {
+    console.log("EditADMEditADMEditADMEditADMEditADMEditADMEditADM")
+    console.log(admNo);
+    console.log("http://localhost:4000/Adms/UpdateAdm/"+admNo);
+    console.log("EditADMEditADMEditADMEditADMEditADMEditADMEditADM")
     axios
-      .post("http://localhost:4000/Adms/CreateAdm", products)
+      .put("http://localhost:4000/Adms/UpdateAdm/"+admNo, products)
       .then((response) => {
+        console.log("response.dataresponse.dataresponse.dataresponse.data");
         console.log(response.data);
+        console.log("response.dataresponse.dataresponse.dataresponse.data");
       })
       .catch((err) => {
         console.log(err);
@@ -37,7 +43,7 @@ function CreateStep1() {
     toast.current.show({
       severity: "success",
       summary: "Successful",
-      detail: "ADM Created",
+      detail: "ADM Updated",
       life: 3000,
     });
   };
@@ -151,7 +157,7 @@ function CreateStep1() {
                 <tr>
                   <td>{ele.admNo ? ele.admNo : ""}</td>
                   <td>{ele.admType ? ele.admType["code"] : ""}</td>
-                  <td>{ele.agentCode ? ele.agentCode["Agency Code"] : ""}</td>
+                  <td>{ele.agentCode ? ele.agentCode: ""}</td>
                   <td>{ele.documentNumber ? ele.documentNumber : ""}</td>
                   <td>{ele.couponNumber ? ele.couponNumber : ""}</td>
                   <td>
@@ -160,7 +166,7 @@ function CreateStep1() {
                       : ""}
                   </td>
                   <td>
-                    {ele.issueCity ? ele.issueCity["City Code Alpha"] : ""}
+                    {ele.issueCity ? ele.issueCity : ""}
                   </td>
                 </tr>
               </tbody>
@@ -180,8 +186,8 @@ function CreateStep1() {
                       : ""}
                   </td>
                   <td>{ele.flightNumber ? ele.flightNumber : ""}</td>
-                  <td>{ele.froms ? ele.froms["City Code Alpha"] : ""}</td>
-                  <td>{ele.tos ? ele.tos["City Code Alpha"] : ""}</td>
+                  <td>{ele.froms ? ele.froms : ""}</td>
+                  <td>{ele.tos ? ele.tos : ""}</td>
                 </tr>
               </tbody>
               <thead>
@@ -201,7 +207,7 @@ function CreateStep1() {
                   </td>
                   <td>
                     {ele.agentCodeExchange
-                      ? ele.agentCodeExchange["Agency Code"]
+                      ? ele.agentCodeExchange
                       : ""}
                   </td>
                   <td>{ele.exchangeNumber ? ele.exchangeNumber : ""}</td>
@@ -227,7 +233,7 @@ function CreateStep1() {
                   </td>
                   <td>
                     {ele.agentCodeRefund
-                      ? ele.agentCodeRefund["Agency Code"]
+                      ? ele.agentCodeRefund
                       : ""}
                   </td>
                   <td>{ele.refundNumber ? ele.refundNumber : ""}</td>
@@ -248,7 +254,7 @@ function CreateStep1() {
                   <td>{ele.anomaly ? ele.anomaly : ""}</td>
                   <td>
                     {ele.currencyCode
-                      ? ele.currencyCode["Currency Alpha Code"]
+                      ? ele.currencyCode
                       : ""}
                   </td>
                   <td>{ele.totalAmount ? ele.totalAmount : ""} </td>
@@ -269,7 +275,7 @@ function CreateStep1() {
         <PrimeButton
           label="Save Changes"
           icon="pi pi-check"
-          searchFunction={SaveADM}
+          searchFunction={EditADM}
           classname="p-button-success w-20rem"
         />
       </div>
@@ -277,4 +283,4 @@ function CreateStep1() {
   );
 }
 
-export default CreateStep1;
+export default CreateStep4SummaryEdit;

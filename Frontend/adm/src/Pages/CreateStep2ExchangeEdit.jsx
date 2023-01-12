@@ -15,52 +15,52 @@ import PrimeButton from "../Components/Button/ButtonPrimeIcon";
 import { Routes, Route, Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import usePost from "../Custom Hook/usePost";
 import useFetch from "../Custom Hook/useFetch";
 import { useDispatch } from "react-redux";
 import { setAdmAction } from "../Redux/actions/actions";
-import axios from "axios";
 import { useSelector } from "react-redux";
-function CreateStep1() {
-  const [selectedAdmType, setSelectedAdmType] = useState(null);
-  const [issueDate, setIssueDate] = useState(null);
+import  InputString  from "../Components/Input/InputMaskString";
+
+function CreateStep2ExchangeEdit() {
+
+  //***************************************************************************** */
+  console.log("%%%%%%%%%%%%   AVANT SELECTOR  %%%%%%%%%%%%%%%%%%%");
+  const productsSelector = useSelector(
+    (state) => state.reducerSetProductEdit.state
+  );
+  const [flightNumber, setFlightNumber] = useState(null);
+  const [exchangedDate, setExchangedDate] = useState(new Date(productsSelector[0].exchangedDate));
+   
+  console.log("agentCode");
+  console.log(productsSelector[0].agentCodeExchange);
+  console.log("agentCode");
+  console.log(
+    "useSelectoruseSelectoruseSelectoruseSelectoruseSelectoruseSelector"
+  );
+  //**************************************************************************** */
+
 
   //const [agents, setAgents] = useState([]);
-  const [agent, setAgent] = useState(null);
-  //const [cities, setCities] = useState([]);
-  const [city, setCity] = useState(null);
-  const [documentNumber, setDocumentNumber] = useState(null);
-  const [couponNumber, setCouponNumber] = useState(null);
+  const [agent, setAgent] = useState(productsSelector[0].agentCodeExchange);
+  const [exchangeNumber, setExchangeNumber] = useState(productsSelector[0].exchangeNumber);
+  const [couponNumber, setCouponNumber] = useState(productsSelector[0].couponNumberExchange);
+  
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  
-  const username =  useSelector((state) => state.reducerAuth.state)
-  const AdmInformationFunction = () => {
+  const exchangeFunction = () => {
     dispatch(
       setAdmAction({
-        admType: selectedAdmType,
-        documentNumber: documentNumber,
-        agentCode: agent,
-        couponNumber: couponNumber,
-        issueCity: city,
-        issueDate: issueDate,
-        admNo:  Math.floor(Date.now() / 1000) + (+documentNumber),
-        username: username,
+        exchangeNumber: exchangeNumber,
+        exchangedDate: exchangedDate,
+        couponNumberExchange: couponNumber,
+        agentCodeExchange: agent,
       })
     );
-    navigate("/CreateStep2Flown");
+    navigate("/CreateStep2RefundEdit");
+   
   };
-  const admTypes = [
-    { name: "Issue", code: "Issue" },
-    { name: "Refund", code: "Refund" },
-    { name: "Flown", code: "Flown" },
-    { name: "Exchange", code: "Exchange" },
-  ];
   const onChangeMethod = (e) => {
     setAgent(e.value);
-  };
-  const onChangeMethodCity = (e) => {
-    setCity(e.value);
   };
 
   const {
@@ -69,61 +69,47 @@ function CreateStep1() {
     error: error1,
   } = useFetch("http://localhost:4000/Agents/AllAgents");
 
-  const {
-    data: cities,
-    loading: loading2,
-    error: error2,
-  } = useFetch("http://localhost:4000/Cities/AllCities");
-
   return (
     <div>
       <MenuBar />
       <BreadCrumbDemo />
       <div className="flex flex-column  align-items-center justify-content-between gap-2">
         <h1>ADM Information</h1>
-        <label>
-          Agency Debit Memos (ADM) / Agency Credit Memos (ACM) are adjustements
-          issued by an Airline for any incorrectly reported document
-        </label>
+        <label>Exchanged Document Detail</label>
       </div>
       <MenuSteps />
 
       <FlexBox
         input1Col1={
-          <DropDownClear
-            label="ADM Type"
-            placeholder="Select ADM Type "
-            autoCompleteValues={admTypes}
-            selectedValue={selectedAdmType}
-            onChangeMethod={(e) => setSelectedAdmType(e.target.value)}
-            filterByProps="name"
-            optionLabelProps="name"
+          <CalendarInput
+            label="Exchanged Date"
+            date3={exchangedDate}
+            setDate={(e) => setExchangedDate(e.value)}
           />
         }
         input2Col1={
           <InputMask
-            label="Document Number"
+            label="Exchanged Document "
             mask="9999999999"
-            val1={documentNumber}
-            setVal1={(e) => setDocumentNumber(e.value)}
-          />
-        }
-        input3Col1={
-          <CalendarInput
-            label="Issue Date"
-            date3={issueDate}
-            setDate={(e) => setIssueDate(e.value)}
+            val1={exchangeNumber}
+            setVal1={(e) => setExchangeNumber(e.value)}
           />
         }
         input1Col2={
-          <DropDownClear
+       /*   <DropDownClear
             label="Agent Code"
-            placeholder="Select an Agent"
+            placeholder={productsSelector[0].agentCodeExchange}
             autoCompleteValues={agents}
             selectedValue={agent}
             onChangeMethod={onChangeMethod}
             filterByProps="Agency Code"
             optionLabelProps="Agency Code"
+          />*/
+          <InputString
+            label="Agent Code"
+            mask="9999999"
+            val1={productsSelector[0].agentCode}
+            setVal1={(e) => setAgent(e.value)}
           />
         }
         input2Col2={
@@ -134,17 +120,6 @@ function CreateStep1() {
             setVal1={(e) => setCouponNumber(e.value)}
           />
         }
-        input3Col2={
-          <DropDownClear
-            label="Issue City"
-            placeholder="Select Issue City"
-            autoCompleteValues={cities}
-            selectedValue={city}
-            onChangeMethod={onChangeMethodCity}
-            filterByProps="City Code Alpha"
-            optionLabelProps="City Code Alpha"
-          />
-        }
       />
 
       <div className="flex flex-row  justify-content-center align-items-center gap-3">
@@ -152,12 +127,12 @@ function CreateStep1() {
           label="Go Back"
           icon="pi pi-times"
           classname="p-button-secondary w-10rem"
-          searchFunction={AdmInformationFunction}
+          searchFunction={exchangeFunction}
         />
         <PrimeButton
           label="Next   "
           icon="pi pi-check"
-          searchFunction={AdmInformationFunction}
+          searchFunction={exchangeFunction}
           classname="p-button-success w-10rem"
         />
       </div>
@@ -165,4 +140,4 @@ function CreateStep1() {
   );
 }
 
-export default CreateStep1;
+export default CreateStep2ExchangeEdit;
