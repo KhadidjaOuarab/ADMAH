@@ -19,4 +19,20 @@ routerAdm.post('/CreateAdm', admController.createADM);
 routerAdm.put('/UpdateAdm/:id', admController.updateADM);
 
 routerAdm.get('/AllAdmsFilter(/:documentNumber)/:admNumber/:selectedAdmType/:agent', admController.getAllAdmsByFilter);
+
+
+routerAdm.get('/AllAdms1/:agent/:admNumber', admController.getAgentNum);
+routerAdm.get('/AllAdms2/:agent/:admNumber/:selectedAdmType', admController.getAgentNumType);
+routerAdm.get('/AllAdms3/:agent/:admNumber/:selectedAdmType/:user', admController.getAgentNumTypeUser);
+routerAdm.get('/AllAdms4/:documentNumber/:agent', admController.getDocAgent);
+routerAdm.get('/AllAdms5/:documentNumber/:agent/:admNumber', admController.getDocAgentNum);
+routerAdm.get('/AllAdms6/:documentNumber/:agent/:admNumber/:selectedAdmType', admController.getDocAgentNumType);
+routerAdm.get('/AllAdms11/:documentNumber/:agent/:selectedAdmType', admController.getDocAgentType);
+routerAdm.get('/AllAdms12/:documentNumber/:agent/:user', admController.getDocAgentUser);
+
+routerAdm.get('/AllAdms7/:documentNumber/:agent/:admNumber/:selectedAdmType/:user', admController.getDocAgentNumTypeUser);
+routerAdm.get('/AllAdms8/:admNumber/:selectedAdmType', admController.getNumType);
+routerAdm.get('/AllAdms9/:admNumber/:selectedAdmType/:user', admController.getNumTypeUser);
+routerAdm.get('/AllAdms10/:selectedAdmType/:user', admController.getTypeUser);
+
 module.exports = routerAdm;

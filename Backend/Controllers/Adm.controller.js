@@ -99,7 +99,166 @@ admController.getAllAdmsByFilterUser = async function (req, res) {
     res.status(500).send(error);
   }
 };
+//********************************************************************************************************************** */
 
+admController.getDocAgent = async function (req, res) {
+   console.log("GET /getDocAgent");
+  let adms;
+  try {
+    console.log("inside try GET /getDocAgent");
+    adms = await AdmModel.find({ documentNumber: req.params.documentNumber , agentCode: req.params.agent });
+   console.log(adms);
+    res.send(adms);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
+
+admController.getDocAgentNum = async function (req, res) {
+  // console.log("GET /getAllUsers");
+  let adms;
+  try {
+    // console.log("inside try GET /getAllUsers");
+    adms = await AdmModel.find({ documentNumber: req.params.documentNumber , agentCode: req.params.agent, admNo: req.params.admNumber   });
+    // console.log(adms);
+    res.send(adms);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
+
+admController.getDocAgentNumType = async function (req, res) {
+  // console.log("GET /getAllUsers");
+  let adms;
+  try {
+    // console.log("inside try GET /getAllUsers");
+    adms = await AdmModel.find({ documentNumber: req.params.documentNumber , agentCode: req.params.agent, admNo: req.params.admNumber, admType: req.params.selectedAdmType  });
+    // console.log(adms);
+    res.send(adms);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
+
+admController.getDocAgentType = async function (req, res) {
+  // console.log("GET /getAllUsers");
+  let adms;
+  try {
+    // console.log("inside try GET /getAllUsers");
+    adms = await AdmModel.find({ documentNumber: req.params.documentNumber , agentCode: req.params.agent, admType: req.params.selectedAdmType  });
+    // console.log(adms);
+    res.send(adms);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
+
+admController.getDocAgentNumTypeUser = async function (req, res) {
+  // console.log("GET /getAllUsers");
+  let adms;
+  try {
+    // console.log("inside try GET /getAllUsers");
+    adms = await AdmModel.find({ documentNumber: req.params.documentNumber , agentCode: req.params.agent, admNo: req.params.admNumber, admType: req.params.selectedAdmType , username: req.params.user});
+    // console.log(adms);
+    res.send(adms);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
+
+admController.getDocAgentUser = async function (req, res) {
+  // console.log("GET /getAllUsers");
+  let adms;
+  try {
+    // console.log("inside try GET /getAllUsers");
+    adms = await AdmModel.find({ documentNumber: req.params.documentNumber , agentCode: req.params.agent, username: req.params.user});
+    // console.log(adms);
+    res.send(adms);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
+
+admController.getAgentNum = async function (req, res) {
+  // console.log("GET /getAllUsers");
+  let adms;
+  try {
+    // console.log("inside try GET /getAllUsers");
+    adms = await AdmModel.find({ agentCode: req.params.agent, admNo: req.params.admNumber});
+    // console.log(adms);
+    res.send(adms);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
+
+admController.getAgentNumType = async function (req, res) {
+  // console.log("GET /getAllUsers");
+  let adms;
+  try {
+    // console.log("inside try GET /getAllUsers");
+    adms = await AdmModel.find({ agentCode: req.params.agent, admNo: req.params.admNumber,admType: req.params.selectedAdmType});
+    // console.log(adms);
+    res.send(adms);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
+
+admController.getAgentNumTypeUser = async function (req, res) {
+  // console.log("GET /getAllUsers");
+  let adms;
+  try {
+    // console.log("inside try GET /getAllUsers");
+    adms = await AdmModel.find({ agentCode: req.params.agent, admNo: req.params.admNumber,admType: req.params.selectedAdmType,  username: req.params.user });
+    // console.log(adms);
+    res.send(adms);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
+
+admController.getTypeUser = async function (req, res) {
+  // console.log("GET /getAllUsers");
+  let adms;
+  try {
+    // console.log("inside try GET /getAllUsers");
+    adms = await AdmModel.find({ admType: req.params.selectedAdmType,  username: req.params.user });
+    // console.log(adms);
+    res.send(adms);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
+
+admController.getNumType = async function (req, res) {
+  // console.log("GET /getAllUsers");
+  let adms;
+  try {
+    // console.log("inside try GET /getAllUsers");
+    adms = await AdmModel.find({ admNo: req.params.admNumber,admType: req.params.selectedAdmType});
+    // console.log(adms);
+    res.send(adms);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
+
+admController.getNumTypeUser = async function (req, res) {
+  // console.log("GET /getAllUsers");
+  let adms;
+  try {
+    // console.log("inside try GET /getAllUsers");
+    adms = await AdmModel.find({ admNo: req.params.admNumber,admType: req.params.selectedAdmType, username: req.params.user });
+    // console.log(adms);
+    res.send(adms);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
+
+
+//********************************************************************************************************************** */
 admController.deleteADM = async function (req, res) {
   //  console.log("GET /getAllUsers");
   let adm;

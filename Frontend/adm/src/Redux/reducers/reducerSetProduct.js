@@ -1,6 +1,6 @@
 import {SETPRODUCT} from "../type/type"
 const initState = {
-  products: [{}],
+  products: [{}]
 };
 
 

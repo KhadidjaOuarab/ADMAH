@@ -5,9 +5,9 @@ const initState = {
 };
 
 const reducerAuth = (state = initState, action) => {
-  console.log("SETLOGINSETLOGINSETLOGINSETLOGINSETLOGIN");
-  console.log(state);
-  console.log("SETLOGINSETLOGINSETLOGINSETLOGINSETLOGIN");
+  //console.log("SETLOGINSETLOGINSETLOGINSETLOGINSETLOGIN");
+  //console.log(state);
+ // console.log("SETLOGINSETLOGINSETLOGINSETLOGINSETLOGIN");
   if (action.type === "SETLOGIN") {
     return { state: action.payload, isLog: true 
      
