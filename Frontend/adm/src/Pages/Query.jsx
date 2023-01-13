@@ -11,89 +11,61 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 import moment from "moment";
 
-function CreateStep4SummaryEdit() {
+function Query() {
   const navigate = useNavigate();
-  const loginFunction = () => {
-    navigate("/CreateStep1");
-  };
+  
   const toast = useRef(null);
-  const EditADM = () => {
-    console.log("EditADMEditADMEditADMEditADMEditADMEditADMEditADM")
-    console.log(admNo);
-    console.log("http://localhost:4000/Adms/UpdateAdm/"+admNo);
-    console.log("EditADMEditADMEditADMEditADMEditADMEditADMEditADM")
-    axios
-      .put("http://localhost:4000/Adms/UpdateAdm/"+admNo, products)
-      .then((response) => {
-        console.log("response.dataresponse.dataresponse.dataresponse.data");
-        console.log(response.data);
-        console.log("response.dataresponse.dataresponse.dataresponse.data");
-      })
-      .catch((err) => {
-        console.log(err);
-        toast.current.show({
-          severity: "error",
-          summary: "Error Message",
-          detail: err,
-          life: 3000,
-        });
-      })
-      .finally(() => {});
-
-    toast.current.show({
-      severity: "success",
-      summary: "Successful",
-      detail: "ADM Updated",
-      life: 3000,
-    });
-  };
-
-  const agentCode = useSelector((state) => state.createAdmReducer.agentCode);
+ 
+  console.log("useSelectoruseSelectoruseSelectoruseSelector");
+  console.log( useSelector((state) => state.queryAdmReducer.admType));
+  console.log("useSelectoruseSelectoruseSelectoruseSelector");
+  
+  const agentCode = useSelector((state) => state.queryAdmReducer.agentCode ? state.queryAdmReducer.agentCode : state.queryAdmReducer) ;
   const flightNumber = useSelector(
-    (state) => state.createAdmReducer.flightNumber
+    (state) => state.queryAdmReducer.flightNumber
   );
   const documentNumber = useSelector(
-    (state) => state.createAdmReducer.documentNumber
+    (state) => state.queryAdmReducer.documentNumber
   );
   const couponNumber = useSelector(
-    (state) => state.createAdmReducer.couponNumber
+    (state) => state.queryAdmReducer.couponNumber
   );
-  const admType = useSelector((state) => state.createAdmReducer.admType);
-  const admNo = useSelector((state) => state.createAdmReducer.admNo);
-  const anomaly = useSelector((state) => state.createAdmReducer.anomaly);
+  const admType = useSelector((state) => state.queryAdmReducer.admType);
+  const admNo = useSelector((state) => state.queryAdmReducer.admNo);
+  const anomaly = useSelector((state) => state.queryAdmReducer.anomaly);
   const currencyCode = useSelector(
-    (state) => state.createAdmReducer.currencyCode
+    (state) => state.queryAdmReducer.currencyCode
   );
   const totalAmount = useSelector(
-    (state) => state.createAdmReducer.totalAmount
+    (state) => state.queryAdmReducer.totalAmount
   );
-  const username = useSelector((state) => state.createAdmReducer.username);
-  const issueCity = useSelector((state) => state.createAdmReducer.issueCity);
-  const issueDate = useSelector((state) => state.createAdmReducer.issueDate);
-  const flightDate = useSelector((state) => state.createAdmReducer.flightDate);
-  const froms = useSelector((state) => state.createAdmReducer.froms);
-  const tos = useSelector((state) => state.createAdmReducer.tos);
+  const username = useSelector((state) => state.queryAdmReducer.username);
+  const issueCity = useSelector((state) => state.queryAdmReducer.issueCity);
+  const issueDate = useSelector((state) => state.queryAdmReducer.issueDate);
+  const flightDate = useSelector((state) => state.queryAdmReducer.flightDate);
+  const froms = useSelector((state) => state.queryAdmReducer.froms);
+  const tos = useSelector((state) => state.queryAdmReducer.tos);
   const exchangeNumber = useSelector(
-    (state) => state.createAdmReducer.exchangeNumber
+    (state) => state.queryAdmReducer.exchangeNumber
   );
   const exchangedDate = useSelector(
-    (state) => state.createAdmReducer.exchangedDate
+    (state) => state.queryAdmReducer.exchangedDate
   );
   const couponNumberExchange = useSelector(
-    (state) => state.createAdmReducer.couponNumberExchange
+    (state) => state.queryAdmReducer.couponNumberExchange
   );
   const agentCodeExchange = useSelector(
-    (state) => state.createAdmReducer.agentCodeExchange
+    (state) => state.queryAdmReducer.agentCodeExchange
   );
   const refundNumber = useSelector(
-    (state) => state.createAdmReducer.refundNumber
+    (state) => state.queryAdmReducer.refundNumber
   );
-  const refundDate = useSelector((state) => state.createAdmReducer.refundDate);
+  const refundDate = useSelector((state) => state.queryAdmReducer.refundDate);
   const couponNumberRefund = useSelector(
-    (state) => state.createAdmReducer.couponNumberRefund
+    (state) => state.queryAdmReducer.couponNumberRefund
   );
   const agentCodeRefund = useSelector(
-    (state) => state.createAdmReducer.agentCodeRefund
+    (state) => state.queryAdmReducer.agentCodeRefund
   );
 
   const products = [
@@ -124,11 +96,11 @@ function CreateStep4SummaryEdit() {
     },
   ];
 
-  console.log("useSelectoruseSelectoruseSelectoruseSelector");
-  console.log(products);
-  console.log("useSelectoruseSelectoruseSelectoruseSelector");
+  //console.log("useSelectoruseSelectoruseSelectoruseSelector");
+  //console.log(products);
+  //console.log("useSelectoruseSelectoruseSelectoruseSelector");
   const BackFunction = () => {
-    navigate("/Anomaly");
+    navigate("/home");
   };
   return (
     <>
@@ -159,7 +131,7 @@ function CreateStep4SummaryEdit() {
               <tbody className=" mb-4">
                 <tr>
                   <td>{ele.admNo ? ele.admNo : ""}</td>
-                  <td>{ele.admType ? ele.admType["code"] : ""}</td>
+                  <td>{ele.admType ? ele.admType : ""}</td>
                   <td>{ele.agentCode ? ele.agentCode: ""}</td>
                   <td>{ele.documentNumber ? ele.documentNumber : ""}</td>
                   <td>{ele.couponNumber ? ele.couponNumber : ""}</td>
@@ -275,15 +247,10 @@ function CreateStep4SummaryEdit() {
           classname="p-button-secondary w-20rem"
           searchFunction={BackFunction}
         />
-        <PrimeButton
-          label="Save Changes"
-          icon="pi pi-check"
-          searchFunction={EditADM}
-          classname="p-button-success w-20rem"
-        />
+       
       </div>
     </>
   );
 }
 
-export default CreateStep4SummaryEdit;
+export default Query;

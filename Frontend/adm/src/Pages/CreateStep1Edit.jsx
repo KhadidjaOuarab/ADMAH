@@ -71,6 +71,9 @@ function CreateStep1Edit() {
     { name: "Flown", code: "Flown" },
     { name: "Exchange", code: "Exchange" },
   ];
+  const BackFunction = () => {
+    navigate("/home");
+  };
  return (
     <div>
       <MenuBar />
@@ -166,7 +169,7 @@ function CreateStep1Edit() {
           label="Go Back"
           icon="pi pi-times"
           classname="p-button-secondary w-10rem"
-          //   searchFunction={AdmInformationFunction}
+             searchFunction={BackFunction}
         />
         <PrimeButton
           label="Next   "

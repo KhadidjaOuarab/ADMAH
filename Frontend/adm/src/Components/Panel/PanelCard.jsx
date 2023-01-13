@@ -519,6 +519,62 @@ const PanelCard = () => {
                                           .catch((error) => {
                                             console.log(error.value);
                                           });
+                                      } else {
+                                        if (
+                                          documentNumber == null &&
+                                          agent != null &&
+                                          user == null &&
+                                          admNumber == null &&
+                                          selectedAdmType != null
+                                        ) {
+                                          axios
+                                            .get(
+                                              "http://localhost:4000/Adms/AllAdms13/" +
+                                                agent["Agency Code"] +
+                                                "/" +
+                                                selectedAdmType["name"]
+                                            )
+                                            .then((response) => {
+                                              setProducts(response.data);
+                                              console.log(products);
+                                              dispatch(
+                                                setProductAction(response.data)
+                                              );
+                                              console.log(products);
+                                            })
+                                            .catch((error) => {
+                                              console.log(error.value);
+                                            });
+                                        } else {
+                                          if (
+                                            documentNumber == null &&
+                                            agent != null &&
+                                            user != null &&
+                                            admNumber == null &&
+                                            selectedAdmType == null
+                                          ) {
+                                            axios
+                                              .get(
+                                                "http://localhost:4000/Adms/AllAdms14/" +
+                                                  agent["Agency Code"] +
+                                                  "/" +
+                                                  user["username"]
+                                              )
+                                              .then((response) => {
+                                                setProducts(response.data);
+                                                console.log(products);
+                                                dispatch(
+                                                  setProductAction(
+                                                    response.data
+                                                  )
+                                                );
+                                                console.log(products);
+                                              })
+                                              .catch((error) => {
+                                                console.log(error.value);
+                                              });
+                                          }
+                                        }
                                       }
                                     }
                                   }

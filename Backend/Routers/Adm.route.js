@@ -29,6 +29,8 @@ routerAdm.get('/AllAdms5/:documentNumber/:agent/:admNumber', admController.getDo
 routerAdm.get('/AllAdms6/:documentNumber/:agent/:admNumber/:selectedAdmType', admController.getDocAgentNumType);
 routerAdm.get('/AllAdms11/:documentNumber/:agent/:selectedAdmType', admController.getDocAgentType);
 routerAdm.get('/AllAdms12/:documentNumber/:agent/:user', admController.getDocAgentUser);
+routerAdm.get('/AllAdms13/:agent/:selectedAdmType', admController.getAgentType);
+routerAdm.get('/AllAdms14/:agent/:user', admController.getAgentUser);
 
 routerAdm.get('/AllAdms7/:documentNumber/:agent/:admNumber/:selectedAdmType/:user', admController.getDocAgentNumTypeUser);
 routerAdm.get('/AllAdms8/:admNumber/:selectedAdmType', admController.getNumType);

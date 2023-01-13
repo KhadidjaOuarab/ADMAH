@@ -2,3 +2,4 @@ export const SETPRODUCT = "SETPRODUCT";
 export const SETADMINFORMATION= "SETADMINFORMATION";
 export const SETLOGIN= "SETLOGIN";
 export const SELECTEDADM= "SELECTEDADM";
+export const QUERY= "QUERY";

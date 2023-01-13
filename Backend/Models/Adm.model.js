@@ -19,6 +19,10 @@ const admSchema = new Schema({
     type: String,
     required: true,
   },
+  couponNumber: {
+    type: String,
+    required: false,
+  },
   admType: {
     type: String,
     required: true,

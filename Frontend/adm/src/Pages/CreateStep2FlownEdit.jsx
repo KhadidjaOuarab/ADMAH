@@ -59,7 +59,9 @@ function CreateStep2FlownEdit() {
     );
     navigate("/CreateStep2ExchangeEdit");
   };
-
+  const BackFunction = () => {
+    navigate("/CreateStep1");
+  };
   return (
     <div>
       <MenuBar />
@@ -125,7 +127,7 @@ function CreateStep2FlownEdit() {
           label="Go Back"
           icon="pi pi-times"
           classname="p-button-secondary w-10rem"
-          //  searchFunction={flownInformationFunction}
+            searchFunction={BackFunction}
         />
         <PrimeButton
           label="Next   "

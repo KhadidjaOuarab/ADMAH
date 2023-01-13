@@ -54,7 +54,9 @@ function CreateStep3AnomalyEdit() {
   const onChangeMethod = (e) => {
     setCurrency(e.value);
   };
-
+  const BackFunction = () => {
+    navigate("/home");
+  };
   const {
     data: currencies,
     loading: loading1,
@@ -93,7 +95,7 @@ function CreateStep3AnomalyEdit() {
           label="Go Back"
           icon="pi pi-times"
           classname="p-button-secondary w-10rem"
-          searchFunction={anomalyFunction}
+          searchFunction={BackFunction}
         />
         <PrimeButton
           label="Next   "

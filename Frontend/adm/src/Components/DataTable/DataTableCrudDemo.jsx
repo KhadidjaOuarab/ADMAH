@@ -17,6 +17,7 @@ import { InputText } from "primereact/inputtext";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { selectedAdm } from "../../Redux/actions/actions";
+import { queryAdm } from "../../Redux/actions/actions";
 function DataTableCrudDemo(props) {
   let emptyADM = {
     id: null,
@@ -146,7 +147,39 @@ function DataTableCrudDemo(props) {
     console.log("confirmDeleteProduct");
   };
 
-  const queryProduct = (product) => {};
+  const queryProduct = (product) => {
+    console.log("queryProductqueryProductqueryProductqueryProduct")
+    console.log(product)
+    console.log("queryProductqueryProductqueryProductqueryProduct")
+    dispatch(
+      queryAdm({
+        admType: product.admType,
+        documentNumber: product.documentNumber,
+        agentCode: product.agentCode,
+        couponNumber: product.couponNumber,
+        issueCity: product.issueCity,
+        issueDate:product.issueDate,
+        admNo: product.admNo,
+        username: product.username,
+        exchangeNumber: product.exchangeNumber,
+        exchangedDate: product.exchangedDate,
+        couponNumberExchange: product.couponNumberExchange,
+        agentCodeExchange: product.agentCodeExchange,
+        flightNumber: product.flightNumber,
+        flightDate: product.flightDate,
+        froms: product.froms,
+        tos: product.tos,
+        refundNumber: product.refundNumber,
+        refundDate: product.refundDate,
+        couponNumberRefund: product.couponNumberRefund,
+        agentCodeRefund: product.agentCodeRefund,
+        anomaly: product.anomaly,
+        currencyCode: product.currencyCode,
+        totalAmount: product.totalAmount,
+      })
+    );
+    navigate("/Query");
+  };
 
   const deleteProduct = () => {
     let _products = products.filter((val) => val.id !== product.id);
@@ -355,6 +388,13 @@ function DataTableCrudDemo(props) {
             <Column
               field="documentNumber"
               header="Document Number"
+              //body={priceBodyTemplate}
+              sortable
+              style={{ minWidth: "10rem" }}
+            ></Column>
+             <Column
+              field="couponNumber"
+              header="Coupon Number"
               //body={priceBodyTemplate}
               sortable
               style={{ minWidth: "10rem" }}

@@ -71,7 +71,9 @@ function CreateStep2RefundEdit() {
     loading: loading1,
     error: error1,
   } = useFetch("http://localhost:4000/Agents/AllAgents");
-
+  const BackFunction = () => {
+    navigate("/CreateStep1");
+  };
   return (
     <div>
       <MenuBar />
@@ -130,7 +132,7 @@ function CreateStep2RefundEdit() {
           label="Go Back"
           icon="pi pi-times"
           classname="p-button-secondary w-10rem"
-          searchFunction={refundFunction}
+          searchFunction={BackFunction}
         />
         <PrimeButton
           label="Next   "

@@ -36,7 +36,7 @@ function CreateStep1() {
         agentCodeExchange: agent,
       })
     );
-    navigate("/CreateStep2Refund");
+    navigate("/Anomaly");
    
   };
   const onChangeMethod = (e) => {
@@ -48,7 +48,9 @@ function CreateStep1() {
     loading: loading1,
     error: error1,
   } = useFetch("http://localhost:4000/Agents/AllAgents");
-
+  const BackFunction = () => {
+    navigate("/CreateStep1");
+  };
   return (
     <div>
       <MenuBar />
@@ -101,7 +103,7 @@ function CreateStep1() {
           label="Go Back"
           icon="pi pi-times"
           classname="p-button-secondary w-10rem"
-          searchFunction={exchangeFunction}
+          searchFunction={BackFunction}
         />
         <PrimeButton
           label="Next   "

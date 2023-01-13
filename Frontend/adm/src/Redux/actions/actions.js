@@ -2,6 +2,7 @@ import { SETPRODUCT } from "../type/type";
 import { SETADMINFORMATION } from "../type/type";
 import {SETLOGIN} from "../type/type";
 import {SELECTEDADM} from "../type/type";
+import {QUERY} from "../type/type";
 export const setProductAction = (payload) => {
   return {
     type: SETPRODUCT,
@@ -26,6 +27,13 @@ export const setLogin = (payload) => {
 export const selectedAdm = (payload) => {
   return {
     type: SELECTEDADM,
+    payload: payload,
+  };
+};
+
+export const queryAdm = (payload) => {
+  return {
+    type: QUERY,
     payload: payload,
   };
 };

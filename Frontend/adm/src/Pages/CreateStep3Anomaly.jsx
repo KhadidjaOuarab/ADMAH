@@ -19,7 +19,7 @@ import { useState, useEffect } from "react";
 import useFetch from "../Custom Hook/useFetch";
 import { useDispatch } from "react-redux";
 import { setAdmAction } from "../Redux/actions/actions";
-
+import { useSelector } from "react-redux";
 function CreateStep1() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -48,6 +48,27 @@ function CreateStep1() {
     loading: loading1,
     error: error1,
   } = useFetch("http://localhost:4000/Currencies/AllCurrency");
+  const admType = useSelector((state) => state.createAdmReducer.admType);
+  const BackFunction = () => {
+    
+
+    if (admType["code"] == "Issue") {
+      navigate("/CreateStep1");
+    } else {
+      if (admType["code"] == "Flown") {
+        navigate("/CreateStep2Flown");
+      } else {
+        if (admType["code"] == "Refund") {
+          navigate("/CreateStep2Refund");
+        } else {
+          if (admType["code"] == "Exchange") {
+            navigate("/CreateStep2Exchange");
+          }
+        }
+      }
+    }
+   
+  };
   return (
     <div>
       <MenuBar />
@@ -76,7 +97,7 @@ function CreateStep1() {
           label="Go Back"
           icon="pi pi-times"
           classname="p-button-secondary w-10rem"
-          searchFunction={anomalyFunction}
+          searchFunction={BackFunction}
         />
         <PrimeButton
           label="Next   "

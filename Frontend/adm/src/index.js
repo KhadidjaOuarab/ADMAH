@@ -20,6 +20,7 @@ import CreateAdmExchangeEdit from "./Pages/CreateStep2ExchangeEdit";
 import CreateAdmRefund from "./Pages/CreateStep2Refund";
 import CreateAdmRefundEdit from "./Pages/CreateStep2RefundEdit";
 import Anomaly from "./Pages/CreateStep3Anomaly";
+import Query from "./Pages/Query";
 import AnomalyEdit from "./Pages/CreateStep3AnomalyEdit";
 import Summary from "./Pages/CreateStep4Summary";
 import SummaryEdit from "./Pages/CreateStep4SummaryEdit";
@@ -65,6 +66,7 @@ root.render(
           <Route path="/AnomalyEdit" element={<AnomalyEdit />} />
           <Route path="/Summary" element={<Summary />} />
           <Route path="/SummaryEdit" element={<SummaryEdit />} />
+          <Route path="/Query" element={<Query />} />
         </Routes>
       </React.StrictMode>
     </BrowserRouter>

@@ -204,13 +204,37 @@ admController.getAgentNumType = async function (req, res) {
     res.status(500).send(error);
   }
 };
-
+admController.getAgentType = async function (req, res) {
+  // console.log("GET /getAllUsers");
+  let adms;
+  try {
+    // console.log("inside try GET /getAllUsers");
+    adms = await AdmModel.find({ agentCode: req.params.agent, admType: req.params.selectedAdmType});
+    // console.log(adms);
+    res.send(adms);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
 admController.getAgentNumTypeUser = async function (req, res) {
   // console.log("GET /getAllUsers");
   let adms;
   try {
     // console.log("inside try GET /getAllUsers");
     adms = await AdmModel.find({ agentCode: req.params.agent, admNo: req.params.admNumber,admType: req.params.selectedAdmType,  username: req.params.user });
+    // console.log(adms);
+    res.send(adms);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
+
+admController.getAgentUser = async function (req, res) {
+  // console.log("GET /getAllUsers");
+  let adms;
+  try {
+    // console.log("inside try GET /getAllUsers");
+    adms = await AdmModel.find({ agentCode: req.params.agent,  username: req.params.user });
     // console.log(adms);
     res.send(adms);
   } catch (error) {

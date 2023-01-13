@@ -68,7 +68,9 @@ function CreateStep2ExchangeEdit() {
     loading: loading1,
     error: error1,
   } = useFetch("http://localhost:4000/Agents/AllAgents");
-
+  const BackFunction = () => {
+    navigate("/CreateStep1");
+  };
   return (
     <div>
       <MenuBar />
@@ -127,7 +129,7 @@ function CreateStep2ExchangeEdit() {
           label="Go Back"
           icon="pi pi-times"
           classname="p-button-secondary w-10rem"
-          searchFunction={exchangeFunction}
+          searchFunction={BackFunction}
         />
         <PrimeButton
           label="Next   "

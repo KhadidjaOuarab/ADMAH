@@ -117,7 +117,9 @@ function CreateStep1() {
       agentCodeRefund: agentCodeRefund,
     },
   ];
-
+  const BackFunction = () => {
+    navigate("/Anomaly");
+  };
   console.log("useSelectoruseSelectoruseSelectoruseSelector");
   console.log(products);
   console.log("useSelectoruseSelectoruseSelectoruseSelector");
@@ -261,16 +263,23 @@ function CreateStep1() {
 
       <div className="flex flex-row mt-5 justify-content-center align-items-center gap-3">
         <PrimeButton
-          label="Write Back to ADM List"
+          label="Back  "
           icon="pi pi-times"
-          classname="p-button-secondary w-20rem"
-          searchFunction={loginFunction}
+          classname="p-button-secondary w-10rem"
+          searchFunction={BackFunction}
         />
         <PrimeButton
           label="Save Changes"
           icon="pi pi-check"
           searchFunction={SaveADM}
-          classname="p-button-success w-20rem"
+          classname="p-button-success w-15rem"
+        />
+
+        <PrimeButton
+          label="ADM List"
+          icon="pi pi-times"
+          classname="p-button-info w-10rem"
+          searchFunction={BackFunction}
         />
       </div>
     </>

@@ -1,6 +1,7 @@
 import React from "react";
 import cardCSS from "./Card.css";
-import Input from "../Input/Input";
+import Input from "../Input/InputMaskString";
+import InputPass from "../Input/Password"
 import Label from "../Label/Label";
 import Button from "../Button/Button";
 import { useEffect, useState } from "react";
@@ -50,25 +51,19 @@ function Card() {
     <div className="Card">
       <Label labelClass="LabelPurple" label="Login" />
       <div>
-        <Label labelClass="Defaultlabel" label="User Name" />
+       
         <Input
-          type="text"
-          classname="InputCss"
-          inplace="Enter Username"
-          valueInput={username}
-          onChangeFunction={getValueUsername}
-          icon="fa-solid fa-user"
+          label="User Name"
+          val1={username}
+          setVal1={getValueUsername}
         />
       </div>
       <div>
-        <Label labelClass="Defaultlabel" label="Password " />
-        <Input
-          type="password"
-          classname="InputCss"
-          inplace="Enter Password"
-          icon="fa-solid fa-eye"
-          valueInput={password}
-          onChangeFunction={getValuePassword}
+        
+        <InputPass 
+          
+          value13={password}
+          setValue13={getValuePassword}
         />
       </div>
 

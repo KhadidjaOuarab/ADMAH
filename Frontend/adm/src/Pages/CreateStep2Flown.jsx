@@ -33,7 +33,7 @@ function CreateStep2Flown() {
         tos: to,
       })
     );
-   navigate("/CreateStep2Exchange");
+   navigate("/Anomaly");
    
   };
 
@@ -54,7 +54,9 @@ function CreateStep2Flown() {
     loading: loading2,
     error: error2,
   } = useFetch("http://localhost:4000/Cities/AllCities");
-
+  const BackFunction = () => {
+    navigate("/CreateStep1");
+  };
   return (
     <div>
       <MenuBar />
@@ -110,7 +112,7 @@ function CreateStep2Flown() {
           label="Go Back"
           icon="pi pi-times"
           classname="p-button-secondary w-10rem"
-          searchFunction={flownInformationFunction}
+          searchFunction={BackFunction}
         />
         <PrimeButton
           label="Next   "

@@ -33,8 +33,11 @@ function CreateStep1() {
   const [couponNumber, setCouponNumber] = useState(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  
-  const username =  useSelector((state) => state.reducerAuth.state)
+
+  const username = useSelector((state) => state.reducerAuth.state);
+  const BackFunction = () => {
+    navigate("/home");
+  };
   const AdmInformationFunction = () => {
     dispatch(
       setAdmAction({
@@ -44,11 +47,25 @@ function CreateStep1() {
         couponNumber: couponNumber,
         issueCity: city,
         issueDate: issueDate,
-        admNo:  Math.floor(Date.now() / 1000) + (+documentNumber),
+        admNo: Math.floor(Date.now() / 1000) + +documentNumber,
         username: username,
       })
     );
-    navigate("/CreateStep2Flown");
+    if (selectedAdmType["code"] == "Issue") {
+      navigate("/Anomaly");
+    } else {
+      if (selectedAdmType["code"] == "Flown") {
+        navigate("/CreateStep2Flown");
+      } else {
+        if (selectedAdmType["code"] == "Refund") {
+          navigate("/CreateStep2Refund");
+        } else {
+          if (selectedAdmType["code"] == "Exchange") {
+            navigate("/CreateStep2Exchange");
+          }
+        }
+      }
+    }
   };
   const admTypes = [
     { name: "Issue", code: "Issue" },
@@ -152,7 +169,7 @@ function CreateStep1() {
           label="Go Back"
           icon="pi pi-times"
           classname="p-button-secondary w-10rem"
-          searchFunction={AdmInformationFunction}
+          searchFunction={BackFunction}
         />
         <PrimeButton
           label="Next   "
